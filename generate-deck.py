@@ -1,5 +1,6 @@
 import genanki
 import json
+import re
 from typing import List, Any, Tuple
 
 notes = {}
@@ -255,6 +256,26 @@ def getdeck_pairs() -> Any:
     return pairs_deck
 
 
+repinyin = re.compile(r"[^_]*")
+
+
+def mix_audios(audios: List[str]) -> str:
+    row: List[str] = []
+
+    for audio in audios:
+        pinyinre = repinyin.match(audio)
+        if pinyinre:
+            pinyin = pinyinre[0]
+        else:
+            print(f"No pinyin reading can be found for audio `{audio}`")
+            exit(1)
+
+        ipa = all_recordings[pinyin]['ipa']
+        row.append(f'[sound:{audio}] MOS {pinyin} MOS {ipa}')
+
+    return ' EOL </br> '.join(row)
+
+
 def gendeck_tones() -> Any:
     tones_deck = genanki.Deck(
         1856348667,
@@ -267,11 +288,11 @@ def gendeck_tones() -> Any:
     for tone_title, data in tones.items():
         fields = [
             tone_title,
-            find_audios(data['tone-1']),
-            find_audios(data['tone-2']),
-            find_audios(data['tone-3']),
-            find_audios(data['tone-3-trad']),
-            find_audios(data['tone-4']),
+            mix_audios(data['tone-1']),
+            mix_audios(data['tone-2']),
+            mix_audios(data['tone-3']),
+            mix_audios(data['tone-3-trad']),
+            mix_audios(data['tone-4']),
         ]
         # print("New card:", fields)
         tones_deck.add_note(PinyinNote(model=tones_model, fields=fields))
