@@ -1,0 +1,29 @@
+.card {
+ font-family: arial;
+ font-size: 20px;
+ text-align: center;
+ color: black;
+ background-color: white;
+}
+.big_font {
+  font-family: Arial;
+  font-size: 30px;
+  text-align: center;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+table { 
+  margin-left: auto;
+  margin-right: auto;
+}
+#text_answer {
+  font-size: 30px;
+}
+.ipa {
+  font-size: 20px;
+  text-align: center;
+}
+.bigred {
+  font-size: 25px;
+  color: red;
+}

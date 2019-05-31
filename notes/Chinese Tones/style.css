@@ -1,0 +1,21 @@
+.card {
+ font-family: arial;
+ font-size: 20px;
+ text-align: center;
+ color: black;
+ background-color: white;
+}
+table { 
+  margin-left: auto;
+  margin-right: auto;
+}
+#tone_answer {
+  font-size: 25px;
+}
+#text_answer {
+  font-size: 20px;
+}
+.bigred {
+  font-size: 25px;
+  color: red;
+}

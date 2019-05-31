@@ -1,0 +1,15 @@
+.card {
+ font-family: arial;
+ font-size: 20px;
+ text-align: center;
+ color: black;
+ background-color: white;
+}
+.bigred {
+  font-size: 25px;
+  color: red;
+}
+.written-sound {
+  font-family: Arial;
+  font-size: 30px;
+}

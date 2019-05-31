@@ -1,0 +1,171 @@
+{
+  "bo": {
+    "ipa": "[pu\u032f\u0254]",
+    "notes": "",
+    "recordings": [
+      "b.mp3"
+    ]
+  },
+  "po": {
+    "ipa": "[p\u02b0u\u032f\u0254]",
+    "notes": "",
+    "recordings": [
+      "p.mp3"
+    ]
+  },
+  "mo": {
+    "ipa": "[mu\u032f\u0254]",
+    "notes": "",
+    "recordings": [
+      "m.mp3"
+    ]
+  },
+  "fo": {
+    "ipa": "[fu\u032f\u0254]",
+    "notes": "",
+    "recordings": [
+      "f.mp3",
+      "fo1_1.mp3",
+      "fo1_2.mp3",
+      "fo1_3.mp3",
+      "fo1_5.mp3",
+      "fo1_6.mp3",
+      "fo1_7.wav"
+    ]
+  },
+  "duo": {
+    "ipa": "[tu\u032f\u0254]",
+    "notes": "",
+    "recordings": [
+      "d.mp3"
+    ]
+  },
+  "tuo": {
+    "ipa": "[t\u02b0u\u032f\u0254]",
+    "notes": "",
+    "recordings": [
+      "t.mp3"
+    ]
+  },
+  "nuo": {
+    "ipa": "[nu\u032f\u0254]",
+    "notes": "",
+    "recordings": [
+      "n.mp3",
+      "nuo1_1.mp3",
+      "nuo1_2.mp3",
+      "nuo1_3.mp3",
+      "nuo1_5.mp3",
+      "nuo1_6.mp3",
+      "nuo1_7.wav"
+    ]
+  },
+  "luo": {
+    "ipa": "[lu\u032f\u0254]",
+    "notes": "",
+    "recordings": [
+      "l.mp3"
+    ]
+  },
+  "zi": {
+    "ipa": "[ts\u026f]",
+    "notes": "<img src=\"400px-DifficultChineseSpeechSounds.svg.png\" />",
+    "recordings": [
+      "z.mp3"
+    ]
+  },
+  "ci": {
+    "ipa": "[ts\u02b0\u026f]",
+    "notes": "<img src=\"400px-DifficultChineseSpeechSounds.svg.png\" />",
+    "recordings": [
+      "c.mp3"
+    ]
+  },
+  "si": {
+    "ipa": "[s\u026f]",
+    "notes": "<img src=\"400px-DifficultChineseSpeechSounds.svg.png\" />",
+    "recordings": [
+      "s.mp3"
+    ]
+  },
+  "zhi": {
+    "ipa": "[t\u0282\u0268]",
+    "notes": "<img src=\"400px-DifficultChineseSpeechSounds.svg.png\" />",
+    "recordings": [
+      "zh.mp3"
+    ]
+  },
+  "chi": {
+    "ipa": "[t\u0282\u02b0\u0268]",
+    "notes": "<img src=\"400px-DifficultChineseSpeechSounds.svg.png\" />",
+    "recordings": [
+      "ch.mp3"
+    ]
+  },
+  "shi": {
+    "ipa": "[\u0282\u0268]",
+    "notes": "<img src=\"400px-DifficultChineseSpeechSounds.svg.png\" />",
+    "recordings": [
+      "sh.mp3"
+    ]
+  },
+  "ri": {
+    "ipa": "[\u0290\u0268]",
+    "notes": "<img src=\"400px-DifficultChineseSpeechSounds.svg.png\" />",
+    "recordings": [
+      "r.mp3",
+      "ri1_1.mp3",
+      "ri1_2.mp3",
+      "ri1_3.mp3",
+      "ri1_5.mp3"
+    ]
+  },
+  "ji": {
+    "ipa": "[t\u0255i]",
+    "notes": "<img src=\"400px-DifficultChineseSpeechSounds.svg.png\" />",
+    "recordings": [
+      "j.mp3"
+    ]
+  },
+  "qi": {
+    "ipa": "[t\u0255\u02b0i]",
+    "notes": "<img src=\"400px-DifficultChineseSpeechSounds.svg.png\" />",
+    "recordings": [
+      "q.mp3"
+    ]
+  },
+  "xi": {
+    "ipa": "[\u0255i]",
+    "notes": "<img src=\"400px-DifficultChineseSpeechSounds.svg.png\" />",
+    "recordings": [
+      "x.mp3"
+    ]
+  },
+  "guo": {
+    "ipa": "[ku\u032f\u0254]",
+    "notes": "",
+    "recordings": [
+      "g.mp3"
+    ]
+  },
+  "kuo": {
+    "ipa": "[k\u02b0u\u032f\u0254]",
+    "notes": "",
+    "recordings": [
+      "k.mp3",
+      "kuo1_1.mp3",
+      "kuo1_2.mp3",
+      "kuo1_3.mp3",
+      "kuo1_5.mp3",
+      "kuo1_6.mp3",
+      "kuo1_7.wav"
+    ]
+  },
+  "huo": {
+    "ipa": "[xu\u032f\u0254]",
+    "notes": "",
+    "recordings": [
+      "h.mp3"
+    ]
+  }
+}

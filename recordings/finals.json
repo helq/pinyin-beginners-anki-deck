@@ -1,0 +1,279 @@
+{
+  "a": {
+    "ipa": "-a</br>[\u0251]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "a.mp3"
+    ]
+  },
+  "ai": {
+    "ipa": "-ai</br>[a\u026a\u032f]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": []
+  },
+  "ao": {
+    "ipa": "-ao</br>[\u0251\u028a\u032f]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "ao.mp3"
+    ]
+  },
+  "an": {
+    "ipa": "-an</br>[an]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "an.mp3"
+    ]
+  },
+  "ang": {
+    "ipa": "-ang</br>[\u0251\u014b]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "ang.mp3"
+    ]
+  },
+  "e": {
+    "ipa": "-e</br>[\u026f\u032f\u028c]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "e.mp3"
+    ]
+  },
+  "ei": {
+    "ipa": "-ei</br>[e\u026a\u032f]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "ei.mp3",
+      "ei1_1.mp3",
+      "ei1_3.mp3",
+      "ei1_4.mp3",
+      "ei1_5.mp3",
+      "ei1_7.wav"
+    ]
+  },
+  "en": {
+    "ipa": "-en</br>[\u0259n]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "en.mp3"
+    ]
+  },
+  "eng": {
+    "ipa": "-eng</br>[\u0259\u014b]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "eng.mp3",
+      "eng1_1.mp3",
+      "eng1_2.mp3",
+      "eng1_3.mp3",
+      "eng1_4.mp3",
+      "eng1_5.mp3"
+    ]
+  },
+  "er": {
+    "ipa": "-er</br>[\u0251\u027b]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "er1_1.mp3",
+      "er1_2.mp3",
+      "er1_3.mp3",
+      "er1_4.mp3",
+      "er1_5.mp3",
+      "er1_7.wav"
+    ]
+  },
+  "o": {
+    "ipa": "-o</br>[\u0254]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "o1_1.mp3",
+      "o1_2.mp3",
+      "o1_3.mp3",
+      "o1_4.mp3",
+      "o1_5.mp3",
+      "o1_6.mp3"
+    ]
+  },
+  "ou": {
+    "ipa": "-ou</br>[\u0264\u028a\u032f]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "ou.mp3"
+    ]
+  },
+  "rong": {
+    "ipa": "-ong</br>[\u0290\u028a\u014b]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "ong.mp3",
+      "ong1_4.mp3",
+      "rong1_1.mp3",
+      "rong1_2.mp3",
+      "rong1_3.mp3",
+      "rong1_5.mp3",
+      "rong1_6.mp3",
+      "rong1_7.wav"
+    ]
+  },
+  "yi": {
+    "ipa": "-i</br>[i]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "i.mp3"
+    ]
+  },
+  "ya": {
+    "ipa": "-ia</br>[i\u032f\u0251]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "ia.mp3"
+    ]
+  },
+  "yao": {
+    "ipa": "-iao</br>[i\u032f\u0251\u028a\u032f]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "iao.mp3"
+    ]
+  },
+  "ye": {
+    "ipa": "-ie</br>[i\u025b]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "ie.mp3"
+    ]
+  },
+  "you": {
+    "ipa": "-iu</br>[i\u032f\u0264\u028a\u032f]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "iou.mp3"
+    ]
+  },
+  "yan": {
+    "ipa": "-ian</br>[i\u025bn]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "ian.mp3"
+    ]
+  },
+  "yang": {
+    "ipa": "-iang</br>[i\u032f\u0251\u014b]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "iang.mp3"
+    ]
+  },
+  "yin": {
+    "ipa": "-in</br>[in]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "in.mp3"
+    ]
+  },
+  "ying": {
+    "ipa": "-ing</br>[i\u014b]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "ing.mp3"
+    ]
+  },
+  "yong": {
+    "ipa": "-iong</br>[i\u032f\u028a\u014b]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "iong.mp3"
+    ]
+  },
+  "wu": {
+    "ipa": "-u</br>[u]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "u.mp3"
+    ]
+  },
+  "wa": {
+    "ipa": "-ua</br>[u\u032f\u0251]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "ua.mp3"
+    ]
+  },
+  "wai": {
+    "ipa": "-uai</br>[u\u032fa\u026a\u032f]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "uai.mp3"
+    ]
+  },
+  "wei": {
+    "ipa": "-ui</br>[u\u032fe\u026a\u032f]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "uei.mp3"
+    ]
+  },
+  "wo": {
+    "ipa": "-uo</br>[u\u032f\u0254]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "uo.mp3"
+    ]
+  },
+  "wan": {
+    "ipa": "-uan</br>[u\u032fan]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "uan.mp3"
+    ]
+  },
+  "wang": {
+    "ipa": "-uang</br>[u\u032f\u0251\u014b]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "uang.mp3"
+    ]
+  },
+  "wen": {
+    "ipa": "-un</br>[u\u032f\u0259n]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "uen.mp3"
+    ]
+  },
+  "weng": {
+    "ipa": "[u\u032f\u0259\u014b]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "ueng.mp3"
+    ]
+  },
+  "yu": {
+    "ipa": "-\u00fc</br>[y]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "v.mp3"
+    ]
+  },
+  "yue": {
+    "ipa": "-\u00fce</br>[y\u032f\u0153]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "ve.mp3"
+    ]
+  },
+  "yuan": {
+    "ipa": "-\u00fcan</br>[y\u032f\u025bn]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "van.mp3"
+    ]
+  },
+  "yun": {
+    "ipa": "-\u00fcn</br>[yn]",
+    "notes": "<img src=\"IPA_vowel_chart_2005.png\" />",
+    "recordings": [
+      "un.mp3"
+    ]
+  }
+}

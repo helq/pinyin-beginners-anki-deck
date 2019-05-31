@@ -1,0 +1,359 @@
+import genanki
+import json
+from typing import List, Any, Tuple
+
+notes = {}
+notes['spellings'] = {
+    'front1': open("notes/Spellings and Sounds/front-01.html").read(),
+    'back1': open("notes/Spellings and Sounds/back-01.html").read(),
+    'front2': open("notes/Spellings and Sounds/front-02.html").read(),
+    'back2': open("notes/Spellings and Sounds/back-02.html").read(),
+    'style': open("notes/Spellings and Sounds/style.css").read(),
+}
+notes['pairs'] = {
+    'front': open("notes/Pair Sounds/front-01.html").read(),
+    'back': open("notes/Pair Sounds/back-01.html").read(),
+    'style': open("notes/Pair Sounds/style.css").read(),
+}
+notes['tones'] = {
+    'front': open("notes/Chinese Tones/front-01.html").read(),
+    'back': open("notes/Chinese Tones/back-01.html").read(),
+    'style': open("notes/Chinese Tones/style.css").read(),
+}
+
+# import random
+# # Generating random id for model
+# print(random.randrange(1 << 30, 1 << 31))
+
+spellings_model = genanki.Model(
+  1890075746,
+  'Spellings and sounds',
+  fields=[
+    {'name': 'Written Sound'},
+    {'name': 'IPA'},
+    {'name': 'Extra Info'},
+    {'name': 'Audio 1'},
+    {'name': 'Type of Sound'},
+  ],
+  templates=[
+    {
+      'name': 'What is the spelling of',
+      'qfmt': notes['spellings']['front1'],
+      'afmt': notes['spellings']['back1'],
+    },
+    {
+      'name': 'Which sound does this represents',
+      'qfmt': notes['spellings']['front2'],
+      'afmt': notes['spellings']['back2'],
+    },
+  ],
+  css=notes['spellings']['style']
+)
+
+
+def format_card(card_template: str, val1: int, val2: int, opt: bool = False) -> str:
+    card_template = card_template \
+        .replace(f'||SOUND NUMBER 1||', str(val1)) \
+        .replace(f'||SOUND NUMBER 2||', str(val2))
+    if val1 == 3 or val2 == 3:
+        card_template = (
+            "{{#Written Sound 3}}\n" + card_template + "\n{{/Written Sound 3}}"
+        )
+        if opt:
+            card_template = (
+                '{{#Compare with "Written Sound 3"'
+                ' multiple times (or once)? (create 3 cards or 1) [y=3cards]}}\n'
+                + card_template
+                + '\n{{/Compare with "Written Sound 3"'
+                ' multiple times (or once)? (create 3 cards or 1) [y=3cards]}}'
+            )
+    return card_template
+
+
+pairs_model = genanki.Model(
+  556950176,
+  'Minimal pair sounds',
+  fields=[
+    {'name': 'Pair Sounds'},
+    {'name': 'Written Sound 1'},
+    {'name': 'IPA 1'},
+    {'name': 'Written Sound 2'},
+    {'name': 'IPA 2'},
+    {'name': 'Written Sound 3'},
+    {'name': 'IPA 3'},
+    {'name': 'Audio 1'},
+    {'name': 'Audio 2'},
+    {'name': 'Audio 3'},
+    {'name': 'Extra Info'},
+    {'name': 'Compare with "Written Sound 3"'
+             ' multiple times (or once)? (create 3 cards or 1) [y=3cards]'},
+  ],
+  templates=[
+    {
+      'name': 'Which (1-2)? - 1',
+      'qfmt': format_card(notes['pairs']['front'], 1, 2),
+      'afmt': format_card(notes['pairs']['back'],  1, 2),
+    },
+    {
+      'name': 'Which (1-2)? - 2',
+      'qfmt': format_card(notes['pairs']['front'], 1, 2),
+      'afmt': format_card(notes['pairs']['back'],  1, 2),
+    },
+    {
+      'name': 'Which (1-2)? - 3',
+      'qfmt': format_card(notes['pairs']['front'], 1, 2),
+      'afmt': format_card(notes['pairs']['back'],  1, 2),
+    },
+    {
+      'name': 'Which (1-3)? - 1',
+      'qfmt': format_card(notes['pairs']['front'], 1, 3),
+      'afmt': format_card(notes['pairs']['back'],  1, 3),
+    },
+    {
+      'name': 'Which (1-3)? - 2',
+      'qfmt': format_card(notes['pairs']['front'], 1, 3, opt=True),
+      'afmt': format_card(notes['pairs']['back'],  1, 3, opt=True),
+    },
+    {
+      'name': 'Which (1-3)? - 3',
+      'qfmt': format_card(notes['pairs']['front'], 1, 3, opt=True),
+      'afmt': format_card(notes['pairs']['back'],  1, 3, opt=True),
+    },
+    {
+      'name': 'Which (2-3)? - 1',
+      'qfmt': format_card(notes['pairs']['front'], 2, 3),
+      'afmt': format_card(notes['pairs']['back'],  2, 3),
+    },
+    {
+      'name': 'Which (2-3)? - 2',
+      'qfmt': format_card(notes['pairs']['front'], 2, 3, opt=True),
+      'afmt': format_card(notes['pairs']['back'],  2, 3, opt=True),
+    },
+    {
+      'name': 'Which (2-3)? - 3',
+      'qfmt': format_card(notes['pairs']['front'], 2, 3, opt=True),
+      'afmt': format_card(notes['pairs']['back'],  2, 3, opt=True),
+    },
+  ],
+  css=notes['pairs']['style']
+)
+
+tones_model = genanki.Model(
+  1923816429,
+  'Chinese Tones',
+  fields=[
+    {'name': 'Card Name'},
+    {'name': 'tone1'},
+    {'name': 'tone2'},
+    {'name': 'tone3'},
+    {'name': 'tone3-trad'},
+    {'name': 'tone4'},
+  ],
+  templates=[
+    {
+      'name': 'Which tone?',
+      'qfmt': notes['tones']['front'],
+      'afmt': notes['tones']['back'],
+    },
+  ],
+  css=notes['tones']['style']
+)
+
+
+class PinyinNote(genanki.Note):  # type: ignore
+    @property
+    def guid(self) -> Any:
+        return genanki.guid_for(self.fields[0])
+
+
+# used_audios = []  # type: List[str]
+
+with open("recordings/recordings.json") as f:
+    all_recordings = json.load(f)
+
+
+def gendecks_initialsfinals() -> Tuple[Any, Any]:
+    initials_deck = genanki.Deck(
+        481218247,
+        'Chinese::Pinyin::A. Initials'
+    )
+
+    finals_deck = genanki.Deck(
+        231241779,
+        'Chinese::Pinyin::B. Finals'
+    )
+
+    with open("recordings/initials.json") as f:
+        initials = json.load(f)
+
+    with open("recordings/finals.json") as f:
+        finals = json.load(f)
+
+    for parts, name, deck in [
+            (initials, 'initial', initials_deck),
+            (finals, 'final', finals_deck)
+    ]:
+        for part, data in parts.items():
+            part_audios = data['recordings']
+
+            if part+'1' in all_recordings:
+                part_audios.extend(all_recordings[part+'1']['recordings'])
+
+            # used_audios.extend(part_audios)
+
+            fields = [
+                part,
+                data['ipa'],
+                data['notes'],
+                ' EOL <br/> '.join([f"[sound:{s}]" for s in part_audios]),
+                name
+            ]
+            # print("New card:", fields)
+            deck.add_note(PinyinNote(model=spellings_model, fields=fields))
+
+    return initials_deck, finals_deck
+
+
+def find_audios(pinyins: List[str]) -> str:
+    audios: List[str] = []
+
+    for pinyin in pinyins:
+        recording = all_recordings[pinyin]
+        ipa = recording['ipa']
+        for rec in recording['recordings']:
+            audios.append(f'[sound:{rec}] MOS {pinyin} MOS {ipa}')
+
+    return ' EOL </br> '.join(audios)
+
+
+def getdeck_pairs() -> Any:
+    pairs_deck = genanki.Deck(
+        1169464332,
+        'Chinese::Pinyin::C. (Minimal Pairs)'
+    )
+
+    with open("recordings/pairs.json") as f:
+        pairs = json.load(f)
+
+    for pair, data in pairs.items():
+        fields = [
+            pair,
+            data['written-1'],
+            data['ipa-1'],
+            data['written-2'],
+            data['ipa-2'],
+            data['written-3'],
+            data['ipa-3'],
+            find_audios(data['sounds-1']),
+            find_audios(data['sounds-2']),
+            find_audios(data['sounds-3']),
+            data['notes'],
+            data['compare'],
+        ]
+        # print("New card:", fields)
+        pairs_deck.add_note(PinyinNote(model=pairs_model, fields=fields))
+    return pairs_deck
+
+
+def gendeck_tones() -> Any:
+    tones_deck = genanki.Deck(
+        1856348667,
+        'Chinese::Pinyin::D. Tones'
+    )
+
+    with open("recordings/tones.json") as f:
+        tones = json.load(f)
+
+    for tone_title, data in tones.items():
+        fields = [
+            tone_title,
+            find_audios(data['tone-1']),
+            find_audios(data['tone-2']),
+            find_audios(data['tone-3']),
+            find_audios(data['tone-3-trad']),
+            find_audios(data['tone-4']),
+        ]
+        # print("New card:", fields)
+        tones_deck.add_note(PinyinNote(model=tones_model, fields=fields))
+
+    return tones_deck
+
+
+def gendeck_readme() -> Any:
+    readme_deck = genanki.Deck(
+        1838790718,
+        'Chinese::Pinyin::.. Readme first ..'
+    )
+
+    basic_model = genanki.Model(
+      2122906168,
+      'Basic',
+      fields=[
+        {'name': 'Front'},
+        {'name': 'Back'},
+      ],
+      templates=[
+        {
+          'name': 'Card',
+          'qfmt': '{{Front}}',
+          'afmt': '{{FrontSide}}\n\n<hr id=answer>\n\n{{Back}}',
+        },
+      ],
+      css="""
+          .card {
+           font-family: arial;
+           font-size: 20px;
+           text-align: center;
+           color: black;
+           background-color: white;
+          }
+          """
+    )
+
+    fields = [
+        """
+        <div style="font-family: Arial; font-size: 15px;">
+        Hi. Thanks for trying this anki deck.
+        <br><br>
+        Please remember that if you are using Anki Desktop you require to install the addon
+        "Replay buttons on card" for this Deck to work properly.
+        <br>
+        Id: <a href="https://ankiweb.net/shared/info/498789867">498789867</a>
+        <br><br>
+        Remember to disable Anki from automatically playing sounds.
+        <br>
+        Deck -> Options -> General -> Automatically play audio.
+        <br><br>
+        If you are using AnkiDroid, you don't require to install any addon.
+        <br><br>
+        This Deck has only been tested in Anki Desktop 2.1 and AnkiDroid. Please write to
+        me (the developer) if it works for you in a different platform ;)
+        <br>
+        <br>
+        Developed by: helq<br>
+        Main page:
+        <a href="https://github.com/helq/pinyin-beginners-anki-deck">github webpage</a>
+        <br><br>
+        2016 - 2019<br></div>
+        """,
+        """<div style="font-family: Arial; font-size: 15px;">
+        You can now suspend this card, ignore it or delete it. But I suggest you keep it
+        around in case you need it in the future ;)<br>
+        <br>
+        That's all! Enjoy!
+        <br>
+        </div>
+        """
+    ]
+
+    readme_deck.add_note(genanki.Note(model=basic_model, fields=fields))
+
+    return readme_deck
+
+
+package = genanki.Package(
+    list(gendecks_initialsfinals()) + [getdeck_pairs(), gendeck_tones(), gendeck_readme()]
+)
+# package.media_files = used_audios
+
+package.write_to_file('pinyin_deck.apkg')
