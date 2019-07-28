@@ -71,8 +71,12 @@ function playAudio(id) {
 
     playAudio('#to_play');
 
-    // focusing filling area
-    document.getElementById("typeans").focus();
+    // Try focusing filling area
+    try {
+        document.getElementById("typeans").focus();
+    } catch (e) {
+        // Ignore
+    }
 
     // Saving data
     Persistence.setItem(JSON.stringify(posibilities));
