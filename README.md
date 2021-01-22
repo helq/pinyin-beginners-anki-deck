@@ -33,22 +33,23 @@ Once everything is ready, run the script `generate-deck.py`:
 python3 generate-deck.py
 ~~~
 
-The scripts generates an Anki deck with name `pinyin_deck.apkg` in the same folder the
+The script generates an Anki deck with name `pinyin_deck.apkg` in the same folder the
 script was run. You can install this deck as any other in Anki.
 
 Notice that this repository doesn't contain any of the recordings that the deck uses. You
 will need to download the audios independently from
 <https://www.mediafire.com/?vpbv0m0me7b81zg>.
 
-Acknoledgements
----------------
+Acknowledgements
+----------------
 
-Special thanks to [anki-persistence][] which allows me to easily retrieve information
+Special thanks to [anki-persistence][] which allows to easily retrieve information
 shown at the front of the card.
 
 [anki-persistence]: https://github.com/SimonLammer/anki-persistence
 
-I don't own any of the recordings. All credit for the recordings goes to:
+Thank you to all the people who recorded hundreds of utterances in Chinese. I don't own
+any of the recordings. All credit for the recordings goes to:
 
 1. <http://resources.allsetlearning.com/chinese/pronunciation/Pinyin_chart>
 2. <https://chinese.yabla.com/chinese-pinyin-chart.php>

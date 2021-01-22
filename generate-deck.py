@@ -54,8 +54,8 @@ spellings_model = genanki.Model(
 
 def format_card(card_template: str, val1: int, val2: int, opt: bool = False) -> str:
     card_template = card_template \
-        .replace(f'||SOUND NUMBER 1||', str(val1)) \
-        .replace(f'||SOUND NUMBER 2||', str(val2))
+        .replace('||SOUND NUMBER 1||', str(val1)) \
+        .replace('||SOUND NUMBER 2||', str(val2))
     if val1 == 3 or val2 == 3:
         card_template = (
             "{{#Written Sound 3}}\n" + card_template + "\n{{/Written Sound 3}}"
@@ -332,39 +332,50 @@ def gendeck_readme() -> Any:
     )
 
     fields = [
-        """
-        <div style="font-family: Arial; font-size: 15px;">
-        Hi. Thanks for trying this anki deck.
-        <br><br>
-        Please remember that if you are using Anki Desktop you require to install the addon
-        "Replay buttons on card" for this Deck to work properly.
-        <br>
-        Id: <a href="https://ankiweb.net/shared/info/498789867">498789867</a>
-        <br><br>
-        Remember to disable Anki from automatically playing sounds.
-        <br>
-        Deck -> Options -> General -> Automatically play audio.
-        <br><br>
-        If you are using AnkiDroid, you don't require to install any addon.
-        <br><br>
-        This Deck has only been tested in Anki Desktop 2.1 and AnkiDroid. Please write to
-        me (the developer) if it works for you in a different platform ;)
-        <br>
-        <br>
-        Developed by: helq<br>
-        Main page:
-        <a href="https://github.com/helq/pinyin-beginners-anki-deck">github webpage</a>
-        <br><br>
-        2016 - 2019<br></div>
-        """,
-        """<div style="font-family: Arial; font-size: 15px;">
-        You can now suspend this card, ignore it or delete it. But I suggest you keep it
-        around in case you need it in the future ;)<br>
-        <br>
-        That's all! Enjoy!
-        <br>
-        </div>
-        """
+        '\n'.join([
+         '<div style="font-family: Arial; font-size: 15px;">',
+         "Hi dear learner. Thank you for for trying out this deck. This couldn't be a thing",
+         'without the hard work of many people who recorded audio and who built the',
+         'software you are using. I am grateful for their hard work.',
+         '<br><br>',
+         'If you are using a recent version of Anki (Anki Desktop 2.1.25, AnkiDroid 2.14.3, or',
+         'Anki for iOS), the deck should work for you without any further configuration.',
+         '<br><br><br>',
+         'Please read carefully the paragraphs below if you encounter any problems with the',
+         'deck or if you are using a slightly older version of Anki.',
+         '<br><br><br>',
+         'If you are using an <strong>old version of Anki Desktop</strong>, you need to:',
+         '<ul>',
+         '  <li>',
+         '    install the Anki addon "Replay buttons on card" (Id:',
+         '    <a href="https://ankiweb.net/shared/info/498789867">498789867</a>)',
+         '    so that audio can be played properly, and',
+         '  </li>',
+         '  <li>',
+         '    disable Anki automatically playing audio:',
+         '    <br>',
+         '    Deck -&gt; Options -&gt; General -&gt; Automatically play audio',
+         '  </li>',
+         '</ul>',
+         '<br>',
+         'This Deck has been tested in Anki Desktop 2.1.25 and AnkiDroid 2.14.3. It has been',
+         'reported to work in Anki for iOS (Thanks to',
+         '<a href="https://github.com/helq/pinyin-beginners-anki-deck/pull/4">mikelambert</a>',
+         'for the patches required to make it work).',
+         '<br><br>',
+         'Developed by: helq<br>',
+         'Main page:',
+         '<a href="https://github.com/helq/pinyin-beginners-anki-deck">github webpage</a>',
+         '<br><br>',
+         '2016 - 2021<br></div>']),
+        '\n'.join([
+         '<div style="font-family: Arial; font-size: 15px;">',
+         'You can now suspend this card, ignore it or delete it. But I suggest you keep it',
+         'around in case you need it in the future ;)<br>',
+         '<br>',
+         "That's all! Enjoy!",
+         '<br>',
+         '</div>'])
     ]
 
     readme_deck.add_note(genanki.Note(model=basic_model, fields=fields))
