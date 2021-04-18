@@ -1,8 +1,9 @@
-<div class='written-sound'>{{Written Sound}}</div>
+<div class="pinyin prompt">{{Pinyin}}</div>
+<div class="zhuyin prompt">{{Zhuyin}}</div>
 
 <hr id=answer>
 
-{{IPA}}
+<div class="ipa">{{IPA}}</div>
 <br/>
 <div id="to_play"></div>
 <br/>
@@ -55,14 +56,14 @@ function playAudio(id) {
 <script>
   var max_sounds_shown = 3;
 
-  var posibilities = getElems(function() {/*EOL {{Audio 1}} EOL*/});
+  var possibilities = getElems(function() {/*EOL {{Audio 1}} EOL*/});
   // shuffling array
-  shuffle(posibilities);
-  posibilities = posibilities.slice(0, max_sounds_shown);
+  shuffle(possibilities);
+  possibilities = possibilities.slice(0, max_sounds_shown);
 
   // getting elements to play
   var textToInsert = "";
-  posibilities.forEach( function(elem) {
+  possibilities.forEach( function(elem) {
     textToInsert += elem;
   });
 

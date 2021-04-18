@@ -6,7 +6,8 @@
   <hr/>
   
   <div id="tone_answer"></div>
-  <div id="text_answer"></div>
+  <div id="pinyin_answer"></div>
+  <div id="zhuyin_answer"></div>
   <div id="text_answer_ipa"></div>
   
   <!--<br/><br/>-->
@@ -38,18 +39,19 @@ function playAudio(id) {
 
 <script type="text/javascript">
   function main() {
-    var posibilities = JSON.parse(Persistence.getItem('posibilities'));
+    var possibilities = JSON.parse(Persistence.getItem('possibilities'));
     var tone = Persistence.getItem('tone');
 
     // Common to front and back cards
-    posibilities.forEach( function(elem) {
+    possibilities.forEach( function(elem) {
       document.getElementById("to_play").innerHTML += elem.sound;
     });
 
     // writting answer
     document.getElementById("tone_answer").innerHTML = tone;
-    document.getElementById("text_answer").innerHTML = posibilities[0].pinyin;
-    document.getElementById("text_answer_ipa").innerHTML = posibilities[0].ipa;
+    document.getElementById("pinyin_answer").innerHTML = possibilities[0].pinyin;
+    document.getElementById("zhuyin_answer").innerHTML = possibilities[0].zhuyin;
+    document.getElementById("text_answer_ipa").innerHTML = possibilities[0].ipa;
   }
 
   if(Persistence.isAvailable()) {

@@ -1,5 +1,5 @@
 .card {
- font-family: arial;
+ font-family: Arial, sans-serif;
  font-size: 20px;
  text-align: center;
  color: black;
@@ -12,7 +12,7 @@ table {
 #tone_answer {
   font-size: 25px;
 }
-#text_answer {
+#pinyin_answer, #zhuyin_answer {
   font-size: 20px;
 }
 .bigred {

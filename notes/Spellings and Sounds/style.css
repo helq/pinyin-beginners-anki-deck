@@ -1,5 +1,5 @@
 .card {
- font-family: arial;
+ font-family: Arial, sans-serif;
  font-size: 20px;
  text-align: center;
  color: black;
@@ -9,7 +9,12 @@
   font-size: 25px;
   color: red;
 }
-.written-sound {
-  font-family: Arial;
+.pinyin, .zhuyin {
   font-size: 30px;
+}
+.pinyin {
+  font-family: Arial, sans-serif;
+}
+.zhuyin {
+    font-family: 'Noto Serif TC', serif;
 }
