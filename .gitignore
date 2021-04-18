@@ -1,2 +1,5 @@
 .mypy_cache
 pinyin_deck.apkg
+
+# Ignore IntelliJ metadata
+.idea/
