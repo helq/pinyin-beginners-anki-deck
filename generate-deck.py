@@ -30,7 +30,8 @@ spellings_model = genanki.Model(
   1890075746,
   'Spellings and sounds',
   fields=[
-    {'name': 'Written Sound'},
+    {'name': 'Pinyin'},
+    {'name': 'Zhuyin'},
     {'name': 'IPA'},
     {'name': 'Extra Info'},
     {'name': 'Audio 1'},
@@ -58,14 +59,14 @@ def format_card(card_template: str, val1: int, val2: int, opt: bool = False) -> 
         .replace('||SOUND NUMBER 2||', str(val2))
     if val1 == 3 or val2 == 3:
         card_template = (
-            "{{#Written Sound 3}}\n" + card_template + "\n{{/Written Sound 3}}"
+            "{{#Pinyin 3}}\n" + card_template + "\n{{/Pinyin 3}}"
         )
         if opt:
             card_template = (
-                '{{#Compare with "Written Sound 3"'
+                '{{#Compare with "Pinyin 3"'
                 ' multiple times (or once)? (create 3 cards or 1) [y=3cards]}}\n'
                 + card_template
-                + '\n{{/Compare with "Written Sound 3"'
+                + '\n{{/Compare with "Pinyin 3"'
                 ' multiple times (or once)? (create 3 cards or 1) [y=3cards]}}'
             )
     return card_template
@@ -76,17 +77,20 @@ pairs_model = genanki.Model(
   'Minimal pair sounds',
   fields=[
     {'name': 'Pair Sounds'},
-    {'name': 'Written Sound 1'},
+    {'name': 'Pinyin 1'},
+    {'name': 'Zhuyin 1'},
     {'name': 'IPA 1'},
-    {'name': 'Written Sound 2'},
+    {'name': 'Pinyin 2'},
+    {'name': 'Zhuyin 2'},
     {'name': 'IPA 2'},
-    {'name': 'Written Sound 3'},
+    {'name': 'Pinyin 3'},
+    {'name': 'Zhuyin 3'},
     {'name': 'IPA 3'},
     {'name': 'Audio 1'},
     {'name': 'Audio 2'},
     {'name': 'Audio 3'},
     {'name': 'Extra Info'},
-    {'name': 'Compare with "Written Sound 3"'
+    {'name': 'Compare with "Pinyin 3"'
              ' multiple times (or once)? (create 3 cards or 1) [y=3cards]'},
   ],
   templates=[
@@ -172,6 +176,29 @@ class PinyinNote(genanki.Note):  # type: ignore
 with open("recordings/recordings.json") as f:
     all_recordings = json.load(f)
 
+with open("recordings/zhuyin.json") as f:
+    all_zhuyin = json.load(f)
+
+
+def lookup_zhuyin(pinyin):
+    pinyin = pinyin.replace('ü', 'u')
+
+    if pinyin not in all_zhuyin:
+        print(f"'{pinyin}' isn't zhuyin")
+        exit(1)
+    return all_zhuyin[pinyin]
+
+
+zy_re = re.compile(r'(-?[üa-uw-z]+)([1-4]?)')
+
+
+def get_zhuyin_syllable(pinyin):
+    match_zy = zy_re.match(pinyin)
+    if not match_zy:
+        print(f"'{pinyin}' isn't a syllable")
+        exit(1)
+    return lookup_zhuyin(match_zy[1]) + all_zhuyin[match_zy[2]]
+
 
 def gendecks_initialsfinals() -> Tuple[Any, Any]:
     initials_deck = genanki.Deck(
@@ -204,6 +231,7 @@ def gendecks_initialsfinals() -> Tuple[Any, Any]:
 
             fields = [
                 part,
+                all_zhuyin[part],
                 data['ipa'],
                 data['notes'],
                 ' EOL <br/> '.join([f"[sound:{s}]" for s in part_audios]),
@@ -222,7 +250,7 @@ def find_audios(pinyins: List[str]) -> str:
         recording = all_recordings[pinyin]
         ipa = recording['ipa']
         for rec in recording['recordings']:
-            audios.append(f'[sound:{rec}] MOS {pinyin} MOS {ipa}')
+            audios.append(f'[sound:{rec}] MOS {pinyin} MOS {get_zhuyin_syllable(pinyin)} MOS {ipa}')
 
     return ' EOL </br> '.join(audios)
 
@@ -237,13 +265,22 @@ def getdeck_pairs() -> Any:
         pairs = json.load(f)
 
     for pair, data in pairs.items():
+        pinyin: List[str] = [data[f'written-{i}'] for i in range(1, 4)]
+
+        def get_zhuyin(i):
+            w = pinyin[i]
+            return lookup_zhuyin(w) if w else ''
+
         fields = [
             pair,
-            data['written-1'],
+            pinyin[0],
+            get_zhuyin(0),
             data['ipa-1'],
-            data['written-2'],
+            pinyin[1],
+            get_zhuyin(1),
             data['ipa-2'],
-            data['written-3'],
+            pinyin[2],
+            get_zhuyin(2),
             data['ipa-3'],
             find_audios(data['sounds-1']),
             find_audios(data['sounds-2']),
@@ -267,11 +304,12 @@ def mix_audios(audios: List[str]) -> str:
         if pinyinre:
             pinyin = pinyinre[0]
         else:
+            pinyin = None
             print(f"No pinyin reading can be found for audio `{audio}`")
             exit(1)
 
         ipa = all_recordings[pinyin]['ipa']
-        row.append(f'[sound:{audio}] MOS {pinyin} MOS {ipa}')
+        row.append(f'[sound:{audio}] MOS {pinyin} MOS {get_zhuyin_syllable(pinyin)} MOS {ipa}')
 
     return ' EOL </br> '.join(row)
 
