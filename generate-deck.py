@@ -14,7 +14,7 @@ def init_notes() -> Dict[str, Dict[str, str]]:
         soup = BeautifulSoup(html, features='html.parser')
 
         for script in soup.find_all('script', src=True):
-            src_path = here / script.attrs.pop('src', None)
+            src_path = here / script.attrs.pop('src')
             data = open(src_path.resolve(), 'r').read()
             script.insert(0, data)
         # TODO: Minify js here. Anki seems to have problems with minified js, but there is probably a way.

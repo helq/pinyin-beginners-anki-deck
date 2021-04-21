@@ -1,6 +1,6 @@
-<div id="the-card">
+<div id="root">
   Guess the Tone
-  
+
   <div id="to-play"></div>
 </div>
 
@@ -8,54 +8,27 @@
 <script src="../../scripts/common.js"></script>
 
 <script>
-  var max_sounds_shown = 3;
-
   checkPersistence(function main() {
-    var numAudio = Math.floor(Math.random() * 4);
-    var tone, possibilities;
-    switch (numAudio) {
-      case 0:
-        possibilities = getElems(function EOL() {/*EOL {{tone1}} EOL*/
-        });
-        tone = '1st tone';
-        break;
-      case 1:
-        possibilities = getElems(function EOL() {/*EOL {{tone2}} EOL*/
-        });
-        tone = '2nd tone';
-        break;
-      case 2:
-        if (Math.random() < 0.2) { // select only with a 20% probability the spoken tone
-          possibilities = getElems(function EOL() {/*EOL {{tone3}} EOL*/
-          });
-          tone = '3rd (spoken) tone';
-        } else {
-          possibilities = getElems(function EOL() {/*EOL {{tone3-trad}} EOL*/
-          });
-          tone = '3rd (traditional) tone';
-        }
-        break;
-      case 3:
-        possibilities = getElems(function EOL() {/*EOL {{tone4}} EOL*/
-        });
-        tone = '4th tone';
-        break;
+    function getRandom() {
+      switch (Math.floor(Math.random() * 4)) {
+        case 0:
+          return [() => { /*EOL {{tone1}} EOL*/ }, '1st tone'];
+        case 1:
+          return [() => { /*EOL {{tone2}} EOL*/ }, '2nd tone'];
+        case 2:
+          return Math.random() < 0.2
+            ? [() => { /*EOL {{tone3}} EOL*/ }, '3rd (spoken) tone']
+            : [() => {/*EOL {{tone3-trad }} EOL*/ }, '3rd (traditional) tone']
+        case 3:
+          return [() => { /*EOL {{tone4 }} EOL*/ }, '4th tone'];
+      }
     }
 
-    // shuffling array
-    shuffle(possibilities);
-    possibilities = possibilities.slice(0, max_sounds_shown);
+    var random = getRandom();
 
-    // Common to front and back cards
-    possibilities.forEach(function (elem) {
-      document.getElementById("to-play").innerHTML += elem.sound;
-    });
+    playAudioAndPersistPossibilities(getElemsFromChunks(random[0]))
 
-    // playing first audio
-    playAudio("#to-play");
-
-    // Saving data
-    Persistence.setItem('possibilities', JSON.stringify(possibilities));
+    var tone = random[1];
     Persistence.setItem('tone', tone);
   })
 </script>

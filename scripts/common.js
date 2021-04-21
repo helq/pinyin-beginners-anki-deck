@@ -1,8 +1,8 @@
 function checkPersistence(callback) {
-  if (Persistence.isAvailable()) {
+  if (typeof (window.Persistence) !== 'undefined' && Persistence.isAvailable()) {
     callback();
   } else {
-    document.getElementById("the-card").innerHTML =
+    document.getElementById('root').innerHTML =
       '<div class="big-red">Sorry but this card cannot be ' +
       "displayed on this Anki client.</div>" +
       "<br/>" +
@@ -12,6 +12,37 @@ function checkPersistence(callback) {
       "<div>Please, contact the developer of the deck to let " +
       "them know something went wrong :)</div>";
   }
+}
+
+function getChunks(fun, clean = true) {
+
+  var chunks = fun.toString()
+    //Strip HTML
+    .replace(/<div>/g, "\n")
+    .replace(/<\/div>/g, "\n")
+    .replace(/<\/?br ?\/?>/g, "\n");
+
+  if (clean) {
+    chunks = chunks
+      .replace(/\s*</g, "<")
+      .replace(/>\s*/g, ">")
+  }
+
+  chunks = chunks.split('EOL');
+  chunks = chunks.slice(2, chunks.length - 1);
+  return chunks;
+}
+
+function getElemsFromChunks(fun) {
+  return getChunks(fun).map(chunk => {
+    var bits = chunk.split("MOS");
+    return {
+      'sound': bits[0],
+      'pinyin': bits[1],
+      'zhuyin': bits[2],
+      'ipa': bits[3]
+    };
+  });
 }
 
 function shuffle(array) {
@@ -29,38 +60,40 @@ function shuffle(array) {
   return array;
 }
 
-function getElems(fun) {
-  var chunks = fun.toString();
-  chunks = chunks.replace(/<div>/g, "\n").replace(/<\/div>/g, "\n").replace(/<\/?br ?\/?>/g, "\n"); //Strip HTML.
-  //chunks = chunks.replace(/\s*</g, "<").replace(/>\s*/g, ">"); //Cleaning
-  chunks = chunks.split('EOL');
-  chunks = chunks.slice(2, chunks.length - 1);
-  var elems = [];
-  chunks.forEach(function (chunk) {
-    var bits = chunk.split("MOS");
-    elems.push({
-      'sound': bits[0],
-      'pinyin': bits[1],
-      'zhuyin': bits[2],
-      'ipa': bits[3]
-    });
-  });
-  return elems;
-}
-
 function playAudio(id) {
-  try {
-    var link = document.querySelector(id);
-    if (!(link instanceof HTMLAnchorElement))
-      link = document.querySelector(id + " > .replay-button");
-    if (!(link instanceof HTMLAnchorElement))
-      link = document.querySelector(id + " > [title=Replay]");
-    if (!(link instanceof HTMLAnchorElement))
-      link = document.querySelector(id + " > a");
-
+  var query = ['', ' > .replaybutton', ' > [title="Replay"]', ' > a']
+    .map(q => '#' + id.toString() + q)
+    .join(', ');
+  var links = document.querySelectorAll(query);
+  for (var link of links) {
     if (link instanceof HTMLAnchorElement) {
       link.click();
+      break;
     }
-  } catch (e) {
   }
+}
+
+function playAudioAndPersistPossibilities(possibilities, max_sounds_shown = 3, playId = 'to-play') {
+  shuffle(possibilities);
+  possibilities = possibilities.slice(0, max_sounds_shown);
+
+  // Common to front and back cards
+  possibilities.forEach(function (elem) {
+    var sound = elem['sound'] || elem;
+
+    var toPlay = document.getElementById(playId);
+    if (!toPlay) {
+      console.error(playId + ' not found')
+    } else {
+      toPlay.innerHTML += sound;
+    }
+  });
+
+  // playing first audio
+  playAudio(playId);
+
+  // Saving data
+  Persistence.setItem('possibilities', JSON.stringify(possibilities));
+
+  return possibilities;
 }

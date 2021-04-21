@@ -14,7 +14,8 @@
 <script>
   var max_sounds_shown = 3;
 
-  var possibilities = getElems(function() {/*EOL {{Audio 1}} EOL*/});
+  var possibilities = getChunks(() => {/*EOL {{Audio 1}} EOL*/});
+
   // shuffling array
   shuffle(possibilities);
   possibilities = possibilities.slice(0, max_sounds_shown);
@@ -25,7 +26,7 @@
     textToInsert += elem;
   });
 
-  document.getElementById("to-play").innerHTML = textToInsert;
+  document.getElementById('to-play').innerHTML = textToInsert;
 
-  playAudio('#to-play');
+  playAudio('to-play');
 </script>

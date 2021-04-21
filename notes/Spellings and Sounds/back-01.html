@@ -1,4 +1,4 @@
-<div id="the-card">
+<div id="root">
   <div id="to-play"></div>
 
   <hr id=answer>
@@ -15,7 +15,7 @@
 <script src="../../scripts/common.js"></script>
 <script>
   checkPersistence(function main() {
-    var possibilities = JSON.parse(Persistence.getItem());
+    var possibilities = JSON.parse(Persistence.getItem('possibilities'));
 
     // Common to front and back cards
     possibilities.forEach(function (elem) {

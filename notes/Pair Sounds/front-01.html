@@ -1,8 +1,8 @@
-<div id="the-card">
+<div id="root">
   What is the sound
-  
+
   <div id="to-play"></div>
-  
+
   <table id="sounds">
   <tr class="pinyin prompt">
     <td><div class='big-font'>{{Pinyin ||SOUND NUMBER 1||}}<div></td>
@@ -19,32 +19,12 @@
 <script src="../../scripts/common.js"></script>
 
 <script>
-  var max_sounds_shown = 3;
   checkPersistence(function main() {
-    var possibilities;
-    var numAudio = Math.floor(Math.random() * 2);
+    var possibilities =
+      Math.floor(Math.random() * 2) === 0
+        ? getElemsFromChunks( () => {/*EOL {{Audio ||SOUND NUMBER 1||}} EOL*/} )
+        : getElemsFromChunks( () => {/*EOL {{Audio ||SOUND NUMBER 2||}} EOL*/} );
 
-    if (numAudio === 0) {
-      possibilities = getElems(function EOL() {/*EOL {{Audio ||SOUND NUMBER 1||}} EOL*/
-      });
-    } else {
-      possibilities = getElems(function EOL() {/*EOL {{Audio ||SOUND NUMBER 2||}} EOL*/
-      });
-    }
-    // shuffling array
-    shuffle(possibilities);
-
-    possibilities = possibilities.slice(0, max_sounds_shown);
-
-    // Common to front and back cards
-    possibilities.forEach(function (elem) {
-      document.getElementById("to-play").innerHTML += elem.sound;
-    });
-
-    // playing first audio
-    playAudio("#to-play");
-
-    // Saving data
-    Persistence.setItem(JSON.stringify(possibilities));
-  })
+    playAudioAndPersistPossibilities(possibilities);
+  });
 </script>

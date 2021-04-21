@@ -1,38 +1,18 @@
-<div id="the-card">
+<div id="root">
   Which {{Type of Sound}} do you hear?
   <div id="to-play"></div>
 
   <div class="pinyin pinyin-type">{{type:Pinyin}}</div>
-  <div class='zhuyin prompt'>{{Zhuyin}}</div>
 </div>
 
 <script src="../../scripts/persistence.js"></script>
-
 <script src="../../scripts/common.js"></script>
+
 <script>
-  var max_sounds_shown = 3;
   checkPersistence(function main() {
-    var possibilities = getElems(function EOL() {/*EOL {{Audio 1}} EOL*/
-    });
-    // shuffling array
-    shuffle(possibilities);
-    possibilities = possibilities.slice(0, max_sounds_shown);
+    playAudioAndPersistPossibilities(getChunks(() => {/*EOL {{Audio 1}} EOL*/ }))
 
-    // Common to front and back cards
-    possibilities.forEach(function (elem) {
-      document.getElementById("to-play").innerHTML += elem;
-    });
-
-    playAudio('#to-play');
-
-    // Try focusing filling area
-    try {
-      document.getElementById("typeans").focus();
-    } catch (e) {
-      // Ignore
-    }
-
-    // Saving data
-    Persistence.setItem(JSON.stringify(possibilities));
+    var typeAns = document.getElementById("typeans");
+    if (typeAns) typeAns.focus();
   })
 </script>
