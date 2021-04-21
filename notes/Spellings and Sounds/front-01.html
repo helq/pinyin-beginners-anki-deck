@@ -39,7 +39,7 @@ function playAudio(id) {
   try {
     var link = document.querySelector(id);
     if (! (link instanceof HTMLAnchorElement))
-      link = document.querySelector(id+" > .replaybutton");
+      link = document.querySelector(id+" > .replay-button");
     if (! (link instanceof HTMLAnchorElement))
       link = document.querySelector(id+" > [title=Replay]");
     if (! (link instanceof HTMLAnchorElement))
@@ -49,7 +49,7 @@ function playAudio(id) {
       link.click();
     }
   } catch (e) {}
-  // document.querySelector(id+" > .replaybutton").click();
+  // document.querySelector(id+" > .replay-button").click();
 }
 </script>
 
@@ -85,7 +85,7 @@ function playAudio(id) {
     main();
   } else {
     document.getElementById("the-card").innerHTML = 
-      '<div class="bigred">Sorry but this card cannot be ' +
+      '<div class="big-red">Sorry but this card cannot be ' +
       "displayed on this Anki client.</div>"+
       "<br/>" +
       "<div>This card cannot be previsualized in some platforms. " +

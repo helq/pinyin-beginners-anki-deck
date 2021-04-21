@@ -9,8 +9,6 @@
 <br/>
 {{Extra Info}}
 
-<!--<input id="secrets">-->
-
 <script>
 function shuffle(array) {
  var i = array.length, tmpVal, rnd;
@@ -39,7 +37,7 @@ function playAudio(id) {
   try {
     var link = document.querySelector(id);
     if (! (link instanceof HTMLAnchorElement))
-      link = document.querySelector(id+" > .replaybutton");
+      link = document.querySelector(id+" > .replay-button");
     if (! (link instanceof HTMLAnchorElement))
       link = document.querySelector(id+" > [title=Replay]");
     if (! (link instanceof HTMLAnchorElement))
@@ -49,7 +47,6 @@ function playAudio(id) {
       link.click();
     }
   } catch (e) {}
-  // document.querySelector(id+" > .replaybutton").click();
 }
 </script>
 
@@ -70,6 +67,4 @@ function playAudio(id) {
   document.getElementById("to_play").innerHTML = textToInsert;
 
   playAudio('#to_play');
-
-  //document.querySelector("#secrets").value = JSON.stringify(document.querySelector("#to_play").innerHTML);
 </script>

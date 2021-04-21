@@ -9,8 +9,6 @@
   <div id="pinyin_answer"></div>
   <div id="zhuyin_answer"></div>
   <div id="text_answer_ipa"></div>
-  
-  <!--<br/><br/>-->
 </div>
 
 <script>
@@ -23,7 +21,7 @@ function playAudio(id) {
   try {
     var link = document.querySelector(id);
     if (! (link instanceof HTMLAnchorElement))
-      link = document.querySelector(id+" > .replaybutton");
+      link = document.querySelector(id+" > .replay-button");
     if (! (link instanceof HTMLAnchorElement))
       link = document.querySelector(id+" > [title=Replay]");
     if (! (link instanceof HTMLAnchorElement))
@@ -33,7 +31,6 @@ function playAudio(id) {
       link.click();
     }
   } catch (e) {}
-  // document.querySelector(id+" > .replaybutton").click();
 }
 </script>
 
@@ -47,7 +44,7 @@ function playAudio(id) {
       document.getElementById("to_play").innerHTML += elem.sound;
     });
 
-    // writting answer
+    // writing answer
     document.getElementById("tone_answer").innerHTML = tone;
     document.getElementById("pinyin_answer").innerHTML = possibilities[0].pinyin;
     document.getElementById("zhuyin_answer").innerHTML = possibilities[0].zhuyin;
@@ -58,7 +55,7 @@ function playAudio(id) {
     main();
   } else {
     document.getElementById("the-card").innerHTML = 
-      '<div class="bigred">Sorry but this card cannot be ' +
+      '<div class="big-red">Sorry but this card cannot be ' +
       "displayed on this Anki client.</div>"+
       "<br/>" +
       "<div>This card cannot be previsualized in some platforms. " +

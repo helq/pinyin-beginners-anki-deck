@@ -42,7 +42,7 @@ if(void 0===window.Persistence){var _persistenceKey="github.com/SimonLammer/anki
       document.getElementById("to_play").innerHTML += elem.sound;
     });
 
-    // writting answer
+    // writing answer
     document.getElementById("pinyin_answer").innerHTML = possibilities[0].pinyin;
     document.getElementById("zhuyin_answer").innerHTML = possibilities[0].zhuyin;
     document.getElementById("text_answer_ipa").innerHTML = possibilities[0].ipa;
@@ -52,7 +52,7 @@ if(void 0===window.Persistence){var _persistenceKey="github.com/SimonLammer/anki
     main();
   } else {
     document.getElementById("the-card").innerHTML = 
-      '<div class="bigred">Sorry but this card cannot be ' +
+      '<div class="big-red">Sorry but this card cannot be ' +
       "displayed on this Anki client.</div>"+
       "<br/>" +
       "<div>This card cannot be previsualized in some platforms. " +
