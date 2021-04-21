@@ -5,50 +5,11 @@
 
 <div class="ipa">{{IPA}}</div>
 <br/>
-<div id="to_play"></div>
+<div id="to-play"></div>
 <br/>
 {{Extra Info}}
 
-<script>
-function shuffle(array) {
- var i = array.length, tmpVal, rnd;
- // While there remain elements to shuffle...
- while (0 !== i) {
-  // Pick a remaining element...
-  rnd = Math.floor(Math.random() * i);
-  i -= 1;
-  // And swap it with the current element.
-  tmpVal = array[i];
-  array[i] = array[rnd];
-  array[rnd] = tmpVal;
- }
- return array;
-}
-
-function getElems(fun) {
-  var chunks = fun.toString();
-  chunks = chunks.replace(/<div>/g, "\n").replace(/<\/div>/g, "\n").replace(/<\/?br ?\/?>/g, "\n"); //Strip HTML
-  chunks = chunks.replace(/\s*</g, "<").replace(/>\s*/g, ">"); //Cleaning
-  chunks = chunks.split('EOL');
-  return chunks.slice(2, chunks.length - 1);
-}
-
-function playAudio(id) {
-  try {
-    var link = document.querySelector(id);
-    if (! (link instanceof HTMLAnchorElement))
-      link = document.querySelector(id+" > .replay-button");
-    if (! (link instanceof HTMLAnchorElement))
-      link = document.querySelector(id+" > [title=Replay]");
-    if (! (link instanceof HTMLAnchorElement))
-      link = document.querySelector(id+" > a");
-
-    if (link instanceof HTMLAnchorElement){
-      link.click();
-    }
-  } catch (e) {}
-}
-</script>
+<script src="../../scripts/common.js"></script>
 
 <script>
   var max_sounds_shown = 3;
@@ -64,7 +25,7 @@ function playAudio(id) {
     textToInsert += elem;
   });
 
-  document.getElementById("to_play").innerHTML = textToInsert;
+  document.getElementById("to-play").innerHTML = textToInsert;
 
-  playAudio('#to_play');
+  playAudio('#to-play');
 </script>

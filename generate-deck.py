@@ -1,27 +1,54 @@
-import genanki
 import json
 import re
+from pathlib import Path
 from typing import List, Any, Tuple, Dict
 
-notes = {
-  'spellings': {
-    'front1': open("notes/Spellings and Sounds/front-01.html").read(),
-    'back1': open("notes/Spellings and Sounds/back-01.html").read(),
-    'front2': open("notes/Spellings and Sounds/front-02.html").read(),
-    'back2': open("notes/Spellings and Sounds/back-02.html").read(),
-    'style': open("notes/Spellings and Sounds/style.css").read(),
-  },
-  'pairs': {
-    'front': open("notes/Pair Sounds/front-01.html").read(),
-    'back': open("notes/Pair Sounds/back-01.html").read(),
-    'style': open("notes/Pair Sounds/style.css").read(),
-  },
-  'tones': {
-    'front': open("notes/Chinese Tones/front-01.html").read(),
-    'back': open("notes/Chinese Tones/back-01.html").read(),
-    'style': open("notes/Chinese Tones/style.css").read(),
-  }
-}
+import genanki
+from bs4 import BeautifulSoup
+
+
+def init_notes() -> Dict[str, Dict[str, str]]:
+    def inject(path: Path):
+        here = path.parent
+        html = open(path, 'r')
+        soup = BeautifulSoup(html, features='html.parser')
+
+        for script in soup.find_all('script', src=True):
+            src_path = here / script.attrs.pop('src', None)
+            data = open(src_path.resolve(), 'r').read()
+            script.insert(0, data)
+        # TODO: Minify js here. Anki seems to have problems with minified js, but there is probably a way.
+
+        return soup.prettify(formatter='html')
+
+    notes_path = Path('notes')
+    spell_path = notes_path / 'Spellings and Sounds'
+    pairs_path = notes_path / 'Pair Sounds'
+    tones_path = notes_path / 'Chinese Tones'
+    css = open(Path('scripts/style.css'), 'r').read()
+
+    return {
+        'spellings': {
+          'front1': inject(spell_path / 'front-01.html'),
+          'back1': inject(spell_path / 'front-01.html'),
+          'front2': inject(spell_path / 'front-02.html'),
+          'back2': inject(spell_path / 'back-02.html'),
+          'style': css,
+        },
+        'pairs': {
+          'front': inject(pairs_path / 'front-01.html'),
+          'back': inject(pairs_path / 'back-01.html'),
+          'style': css,
+        },
+        'tones': {
+          'front': inject(tones_path / 'front-01.html'),
+          'back': inject(tones_path / 'back-01.html'),
+          'style': css,
+        }
+    }
+
+
+notes = init_notes()
 
 spellings_model = genanki.Model(
   1890075746,
@@ -324,6 +351,7 @@ def gen_deck_tones() -> Any:
 
 
 def gen_deck_readme() -> Any:
+    # TODO: Add the inline markup to notes and postprocess it instead
     readme_deck = genanki.Deck(
         1838790718,
         'Chinese::Pinyin::.. Readme first ..'

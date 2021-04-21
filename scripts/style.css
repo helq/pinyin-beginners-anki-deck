@@ -1,0 +1,48 @@
+* {
+  font-family: Arial, sans-serif;
+}
+
+.card {
+  font-size: 20px;
+  text-align: center;
+  color: black;
+  background-color: white;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.big-red {
+  font-size: 25px;
+  color: red;
+}
+
+.big-font {
+  font-size: 30px;
+  text-align: center;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#tone_answer {
+  font-size: 25px;
+}
+
+#pinyin-answer, #zhuyin-answer, .pinyin, .zhuyin {
+  font-size: 30px;
+}
+
+.ipa {
+  text-align: center;
+}
+
+.zhuyin {
+  font-family: 'Noto Serif TC', serif;
+}
