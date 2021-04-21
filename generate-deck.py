@@ -1,30 +1,27 @@
 import genanki
 import json
 import re
-from typing import List, Any, Tuple
+from typing import List, Any, Tuple, Dict
 
-notes = {}
-notes['spellings'] = {
+notes = {
+  'spellings': {
     'front1': open("notes/Spellings and Sounds/front-01.html").read(),
     'back1': open("notes/Spellings and Sounds/back-01.html").read(),
     'front2': open("notes/Spellings and Sounds/front-02.html").read(),
     'back2': open("notes/Spellings and Sounds/back-02.html").read(),
     'style': open("notes/Spellings and Sounds/style.css").read(),
-}
-notes['pairs'] = {
+  },
+  'pairs': {
     'front': open("notes/Pair Sounds/front-01.html").read(),
     'back': open("notes/Pair Sounds/back-01.html").read(),
     'style': open("notes/Pair Sounds/style.css").read(),
-}
-notes['tones'] = {
+  },
+  'tones': {
     'front': open("notes/Chinese Tones/front-01.html").read(),
     'back': open("notes/Chinese Tones/back-01.html").read(),
     'style': open("notes/Chinese Tones/style.css").read(),
+  }
 }
-
-# import random
-# # Generating random id for model
-# print(random.randrange(1 << 30, 1 << 31))
 
 spellings_model = genanki.Model(
   1890075746,
@@ -171,36 +168,29 @@ class PinyinNote(genanki.Note):  # type: ignore
         return genanki.guid_for(self.fields[0])
 
 
-# used_audios = []  # type: List[str]
-
-with open("recordings/recordings.json") as f:
-    all_recordings = json.load(f)
-
-with open("recordings/zhuyin.json") as f:
-    all_zhuyin = json.load(f)
+all_recordings: Dict[str, Any] = json.load(open("recordings/recordings.json"))
+all_zhuyin: Dict[str, str] = json.load(open("recordings/zhuyin.json"))
 
 
-def lookup_zhuyin(pinyin):
+def lookup_zhuyin(pinyin: str) -> str:
     pinyin = pinyin.replace('ü', 'u')
 
     if pinyin not in all_zhuyin:
-        print(f"'{pinyin}' isn't zhuyin")
-        exit(1)
+        raise Exception(f"'{pinyin}' isn't zhuyin")
     return all_zhuyin[pinyin]
 
 
 zy_re = re.compile(r'(-?[üa-uw-z]+)([1-4]?)')
 
 
-def get_zhuyin_syllable(pinyin):
+def get_zhuyin_syllable(pinyin: str) -> str:
     match_zy = zy_re.match(pinyin)
     if not match_zy:
-        print(f"'{pinyin}' isn't a syllable")
-        exit(1)
+        raise Exception(f"'{pinyin}' isn't a syllable")
     return lookup_zhuyin(match_zy[1]) + all_zhuyin[match_zy[2]]
 
 
-def gendecks_initialsfinals() -> Tuple[Any, Any]:
+def gen_decks_initials_finals() -> Tuple[Any, Any]:
     initials_deck = genanki.Deck(
         481218247,
         'Chinese::Pinyin::A. Initials'
@@ -227,8 +217,6 @@ def gendecks_initialsfinals() -> Tuple[Any, Any]:
             if part+'1' in all_recordings:
                 part_audios.extend(all_recordings[part+'1']['recordings'])
 
-            # used_audios.extend(part_audios)
-
             fields = [
                 part,
                 all_zhuyin[part],
@@ -237,7 +225,6 @@ def gendecks_initialsfinals() -> Tuple[Any, Any]:
                 ' EOL <br/> '.join([f"[sound:{s}]" for s in part_audios]),
                 name
             ]
-            # print("New card:", fields)
             deck.add_note(PinyinNote(model=spellings_model, fields=fields))
 
     return initials_deck, finals_deck
@@ -255,7 +242,7 @@ def find_audios(pinyins: List[str]) -> str:
     return ' EOL </br> '.join(audios)
 
 
-def getdeck_pairs() -> Any:
+def gen_deck_pairs() -> Any:
     pairs_deck = genanki.Deck(
         1169464332,
         'Chinese::Pinyin::C. (Minimal Pairs)'
@@ -293,20 +280,18 @@ def getdeck_pairs() -> Any:
     return pairs_deck
 
 
-repinyin = re.compile(r"[^_]*")
+py_re = re.compile(r"[^_]*")
 
 
 def mix_audios(audios: List[str]) -> str:
     row: List[str] = []
 
     for audio in audios:
-        pinyinre = repinyin.match(audio)
-        if pinyinre:
-            pinyin = pinyinre[0]
+        match_py = py_re.match(audio)
+        if match_py:
+            pinyin = match_py[0]
         else:
-            pinyin = None
-            print(f"No pinyin reading can be found for audio `{audio}`")
-            exit(1)
+            raise Exception(f"No pinyin reading can be found for audio `{audio}`")
 
         ipa = all_recordings[pinyin]['ipa']
         row.append(f'[sound:{audio}] MOS {pinyin} MOS {get_zhuyin_syllable(pinyin)} MOS {ipa}')
@@ -314,7 +299,7 @@ def mix_audios(audios: List[str]) -> str:
     return ' EOL </br> '.join(row)
 
 
-def gendeck_tones() -> Any:
+def gen_deck_tones() -> Any:
     tones_deck = genanki.Deck(
         1856348667,
         'Chinese::Pinyin::D. Tones'
@@ -338,7 +323,7 @@ def gendeck_tones() -> Any:
     return tones_deck
 
 
-def gendeck_readme() -> Any:
+def gen_deck_readme() -> Any:
     readme_deck = genanki.Deck(
         1838790718,
         'Chinese::Pinyin::.. Readme first ..'
@@ -422,8 +407,7 @@ def gendeck_readme() -> Any:
 
 
 package = genanki.Package(
-    list(gendecks_initialsfinals()) + [getdeck_pairs(), gendeck_tones(), gendeck_readme()]
+    list(gen_decks_initials_finals()) + [gen_deck_pairs(), gen_deck_tones(), gen_deck_readme()]
 )
-# package.media_files = used_audios
 
 package.write_to_file('pinyin_deck.apkg')
