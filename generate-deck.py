@@ -30,7 +30,7 @@ def init_notes() -> Dict[str, Dict[str, str]]:
     return {
         'spellings': {
           'front1': inject(spell_path / 'front-01.html'),
-          'back1': inject(spell_path / 'front-01.html'),
+          'back1': inject(spell_path / 'back-01.html'),
           'front2': inject(spell_path / 'front-02.html'),
           'back2': inject(spell_path / 'back-02.html'),
           'style': css,
