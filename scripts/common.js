@@ -79,14 +79,7 @@ function playAudioAndPersistPossibilities(possibilities, max_sounds_shown = 3, p
 
   // Common to front and back cards
   possibilities.forEach(function (elem) {
-    var sound = elem['sound'] || elem;
-
-    var toPlay = document.getElementById(playId);
-    if (!toPlay) {
-      console.error(playId + ' not found')
-    } else {
-      toPlay.innerHTML += sound;
-    }
+    document.getElementById(playId).innerHTML += elem['sound'] || elem;
   });
 
   // playing first audio
