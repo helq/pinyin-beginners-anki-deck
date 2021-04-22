@@ -9,6 +9,16 @@ from bs4 import BeautifulSoup
 
 
 def init_notes() -> Dict[str, Dict[str, str]]:
+    scripts_path = Path('scripts')
+
+    def init_npm():
+        args = ['npm', 'install']
+        p = subprocess.run(args, capture_output=False, shell=True, cwd=scripts_path)
+        if p.returncode:
+            raise Exception(p.stderr.decode())
+
+    init_npm()
+
     def inject(path: Path):
         here = path.parent
         with open(path, 'r') as html:
@@ -20,7 +30,7 @@ def init_notes() -> Dict[str, Dict[str, str]]:
             script.insert(0, data)
 
         for script in soup.find_all('script', src=False):
-            rollup_config = Path('scripts/rollup.config.js')
+            rollup_config = scripts_path / 'rollup.config.js'
             args = ['npx', 'rollup', '--config', rollup_config.resolve(), '--stdin=js']
             p = subprocess.run(args, input=bytes(script.string, encoding=html.encoding),
                                capture_output=True, shell=True, cwd=here.resolve())
