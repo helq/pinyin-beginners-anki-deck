@@ -24,7 +24,8 @@ def init_notes() -> Dict[str, Dict[str, str]]:
             args = ['npx', 'rollup', '--config', rollup_config.resolve(), '--stdin=js']
             p = subprocess.run(args, input=bytes(script.string, encoding=html.encoding),
                                capture_output=True, shell=True, cwd=here.resolve())
-
+            if p.returncode:
+                raise Exception(p.stderr.decode())
             out = p.stdout.decode(html.encoding)
             script.string = out
 

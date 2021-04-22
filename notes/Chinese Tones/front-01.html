@@ -24,11 +24,10 @@
       }
     }
 
-    const random = getRandom();
+    const [possibilities, tone] = getRandom();
 
-    playAudioAndPersistPossibilities(getElemsFromChunks(random[0]))
+    playAudioAndPersistPossibilities(getElemsFromChunks(possibilities))
 
-    const tone = random[1];
     Persistence.setItem('tone', tone);
   })
 </script>
