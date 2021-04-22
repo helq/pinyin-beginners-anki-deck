@@ -65,7 +65,7 @@ export function playAudio(id) {
     .map(q => '#' + id.toString() + q)
     .join(', ');
   const links = document.querySelectorAll(query);
-  for (let link of links) {
+  for (const link of links) {
     if (link instanceof HTMLAnchorElement) {
       link.click();
       break;
