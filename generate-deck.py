@@ -1,5 +1,6 @@
 import json
 import re
+import subprocess
 from pathlib import Path
 from typing import List, Any, Tuple, Dict
 
@@ -7,18 +8,28 @@ import genanki
 from bs4 import BeautifulSoup
 
 
-def init_notes() -> Dict[str, Dict[str, str]]:
+def init_notes(uglify=False) -> Dict[str, Dict[str, str]]:
     def inject(path: Path):
         here = path.parent
-        html = open(path, 'r')
-        soup = BeautifulSoup(html, features='html.parser')
-
+        with open(path, 'r') as html:
+            soup = BeautifulSoup(html, features='html.parser')
         for script in soup.find_all('script', src=True):
             src_path = here / script.attrs.pop('src')
             data = open(src_path.resolve(), 'r').read()
             script.insert(0, data)
-        # TODO: Minify js here. Anki seems to have problems with minified js, but there is probably a way.
+        for script in soup.find_all('script', src=False):
+            # Vital template comments are preserved through a JavaScript regex filter, see
+            # https://github.com/mishoo/UglifyJS#keeping-copyright-notices-or-other-comments
+            args = ['uglifyjs', '--comments', r'/EOL\s*{{.*?}}\s*EOL/', '--compress', '--mangle']
 
+            # Note: 'shell' needs to be True in order for subprocess to find uglifyjs without a full path.
+            # If this is an issue, a git-ignored configuration file can be added which specifies the path.
+            p = subprocess.run(args, input=bytes(script.string, encoding=html.encoding),
+                               capture_output=True, shell=True)
+
+            out = p.stdout.decode(html.encoding)
+            script.string = out
+        html.close()
         return soup.prettify(formatter='html')
 
     notes_path = Path('notes')
@@ -48,7 +59,7 @@ def init_notes() -> Dict[str, Dict[str, str]]:
     }
 
 
-notes = init_notes()
+notes = init_notes(True)
 
 spellings_model = genanki.Model(
   1890075746,
