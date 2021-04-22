@@ -1,5 +1,3 @@
-import './persistence'
-
 export function checkPersistence(callback) {
   if (typeof (window.Persistence) !== 'undefined' && Persistence.isAvailable()) {
     callback();
