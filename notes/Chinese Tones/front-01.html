@@ -4,10 +4,9 @@
   <div id="to-play"></div>
 </div>
 
-<script src="../../scripts/persistence.js"></script>
-<script src="../../scripts/common.js"></script>
-
 <script>
+  import {checkPersistence, playAudioAndPersistPossibilities} from "../../scripts/common";
+
   checkPersistence(function main() {
     function getRandom() {
       switch (Math.floor(Math.random() * 4)) {
@@ -24,11 +23,11 @@
       }
     }
 
-    var random = getRandom();
+    const random = getRandom();
 
     playAudioAndPersistPossibilities(getElemsFromChunks(random[0]))
 
-    var tone = random[1];
+    const tone = random[1];
     Persistence.setItem('tone', tone);
   })
 </script>

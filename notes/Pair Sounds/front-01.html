@@ -15,15 +15,16 @@
   </table>
 </div>
 
-<script src="../../scripts/persistence.js"></script>
-<script src="../../scripts/common.js"></script>
-
 <script>
+  import {checkPersistence, getElemsFromChunks, playAudioAndPersistPossibilities} from "../../scripts/common";
+
   checkPersistence(function main() {
-    var possibilities =
+    const possibilities =
       Math.floor(Math.random() * 2) === 0
-        ? getElemsFromChunks( () => {/*EOL {{Audio ||SOUND NUMBER 1||}} EOL*/} )
-        : getElemsFromChunks( () => {/*EOL {{Audio ||SOUND NUMBER 2||}} EOL*/} );
+        ? getElemsFromChunks(() => {/*EOL {{Audio ||SOUND NUMBER 1||}} EOL*/
+        })
+        : getElemsFromChunks(() => {/*EOL {{Audio ||SOUND NUMBER 2||}} EOL*/
+        });
 
     playAudioAndPersistPossibilities(possibilities);
   });

@@ -1,4 +1,6 @@
-function checkPersistence(callback) {
+import './persistence'
+
+export function checkPersistence(callback) {
   if (typeof (window.Persistence) !== 'undefined' && Persistence.isAvailable()) {
     callback();
   } else {
@@ -14,9 +16,9 @@ function checkPersistence(callback) {
   }
 }
 
-function getChunks(fun, clean = true) {
+export function getChunks(fun, clean = true) {
 
-  var chunks = fun.toString()
+  let chunks = fun.toString()
     //Strip HTML
     .replace(/<div>/g, "\n")
     .replace(/<\/div>/g, "\n")
@@ -33,9 +35,9 @@ function getChunks(fun, clean = true) {
   return chunks;
 }
 
-function getElemsFromChunks(fun) {
+export function getElemsFromChunks(fun) {
   return getChunks(fun).map(chunk => {
-    var bits = chunk.split("MOS");
+    const bits = chunk.split("MOS");
     return {
       'sound': bits[0],
       'pinyin': bits[1],
@@ -45,8 +47,8 @@ function getElemsFromChunks(fun) {
   });
 }
 
-function shuffle(array) {
-  var i = array.length, tmpVal, rnd;
+export function shuffle(array) {
+  let i = array.length, tmpVal, rnd;
   // While there remain elements to shuffle...
   while (0 !== i) {
     // Pick a remaining element...
@@ -60,12 +62,12 @@ function shuffle(array) {
   return array;
 }
 
-function playAudio(id) {
-  var query = ['', ' > .replaybutton', ' > [title="Replay"]', ' > a']
+export function playAudio(id) {
+  const query = ['', ' > .replaybutton', ' > [title="Replay"]', ' > a']
     .map(q => '#' + id.toString() + q)
     .join(', ');
-  var links = document.querySelectorAll(query);
-  for (var link of links) {
+  const links = document.querySelectorAll(query);
+  for (let link of links) {
     if (link instanceof HTMLAnchorElement) {
       link.click();
       break;
@@ -73,7 +75,7 @@ function playAudio(id) {
   }
 }
 
-function playAudioAndPersistPossibilities(possibilities, max_sounds_shown = 3, playId = 'to-play') {
+export function playAudioAndPersistPossibilities(possibilities, max_sounds_shown = 3, playId = 'to-play') {
   shuffle(possibilities);
   possibilities = possibilities.slice(0, max_sounds_shown);
 

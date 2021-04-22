@@ -11,11 +11,11 @@
   {{Extra Info}}
 </div>
 
-<script src="../../scripts/persistence.js"></script>
-<script src="../../scripts/common.js"></script>
 <script>
+  import {checkPersistence} from "../../scripts/common";
+
   checkPersistence(function main() {
-    var possibilities = JSON.parse(Persistence.getItem('possibilities'));
+    const possibilities = JSON.parse(Persistence.getItem('possibilities'));
 
     // Common to front and back cards
     possibilities.forEach(function (elem) {

@@ -9,19 +9,19 @@
 <br/>
 {{Extra Info}}
 
-<script src="../../scripts/common.js"></script>
-
 <script>
-  var max_sounds_shown = 3;
+  import {getChunks, playAudio, shuffle} from "../../scripts/common";
 
-  var possibilities = getChunks(() => {/*EOL {{Audio 1}} EOL*/});
+  const max_sounds_shown = 3;
+
+  let possibilities = getChunks(() => {/*EOL {{Audio 1}} EOL*/});
 
   // shuffling array
   shuffle(possibilities);
   possibilities = possibilities.slice(0, max_sounds_shown);
 
   // getting elements to play
-  var textToInsert = "";
+  let textToInsert = "";
   possibilities.forEach( function(elem) {
     textToInsert += elem;
   });

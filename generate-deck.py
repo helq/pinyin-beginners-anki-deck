@@ -1,5 +1,6 @@
 import json
 import re
+import subprocess
 from pathlib import Path
 from typing import List, Any, Tuple, Dict
 
@@ -17,7 +18,15 @@ def init_notes() -> Dict[str, Dict[str, str]]:
             src_path = here / script.attrs.pop('src')
             data = open(src_path.resolve(), 'r').read()
             script.insert(0, data)
-        # TODO: Minify js here. Anki seems to have problems with minified js, but there is probably a way.
+
+        for script in soup.find_all('script', src=False):
+            rollup_config = Path('scripts/rollup.config.js')
+            args = ['npx', 'rollup', '--config', rollup_config.resolve(), '--stdin=js']
+            p = subprocess.run(args, input=bytes(script.string, encoding=html.encoding),
+                               capture_output=True, shell=True, cwd=here.resolve())
+
+            out = p.stdout.decode(html.encoding)
+            script.string = out
 
         return soup.prettify(formatter='html')
 
