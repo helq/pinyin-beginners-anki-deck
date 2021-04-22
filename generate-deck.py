@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup
 def init_notes() -> Dict[str, Dict[str, str]]:
     def inject(path: Path):
         here = path.parent
-        html = open(path, 'r')
-        soup = BeautifulSoup(html, features='html.parser')
+        with open(path, 'r') as html:
+            soup = BeautifulSoup(html, features='html.parser')
 
         for script in soup.find_all('script', src=True):
             src_path = here / script.attrs.pop('src')
