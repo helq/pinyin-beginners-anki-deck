@@ -8,7 +8,7 @@ import genanki
 from bs4 import BeautifulSoup
 
 
-def init_notes(uglify=False) -> Dict[str, Dict[str, str]]:
+def init_notes() -> Dict[str, Dict[str, str]]:
     def inject(path: Path):
         here = path.parent
         with open(path, 'r') as html:
@@ -59,7 +59,7 @@ def init_notes(uglify=False) -> Dict[str, Dict[str, str]]:
     }
 
 
-notes = init_notes(True)
+notes = init_notes()
 
 spellings_model = genanki.Model(
   1890075746,
