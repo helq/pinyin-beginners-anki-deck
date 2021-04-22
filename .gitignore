@@ -2,4 +2,5 @@
 pinyin_deck.apkg
 
 # Ignore IntelliJ metadata
-.idea/
+.idea
+.venv
