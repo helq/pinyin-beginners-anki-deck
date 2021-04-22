@@ -2,15 +2,11 @@ export function checkPersistence(callback) {
   if (typeof (window.Persistence) !== 'undefined' && Persistence.isAvailable()) {
     callback();
   } else {
-    document.getElementById('root').innerHTML =
-      '<div class="big-red">Sorry but this card cannot be ' +
-      "displayed on this Anki client.</div>" +
-      "<br/>" +
-      "<div>This card cannot be previsualized in some platforms. " +
-      "Make sure it actually works at study time.</div>" +
-      "<br/>" +
-      "<div>Please, contact the developer of the deck to let " +
-      "them know something went wrong :)</div>";
+    document.getElementById('root').innerHTML = `\
+<div class="big-red">Sorry but this card cannot be displayed on this Anki client.</div><br/>\
+<div>This card cannot be previsualized in some platforms. Make sure it actually works at study time.</div><br/>\
+<div>Please, contact the developer of the deck to let them know something went wrong :)</div>\
+`;
   }
 }
 
