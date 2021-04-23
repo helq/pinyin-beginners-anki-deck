@@ -8,7 +8,7 @@
   <div id="tone-answer"></div>
   <div id="pinyin-answer"></div>
   <div id="zhuyin-answer"></div>
-  <div id="text-answer-ipa"></div>
+  <div id="ipa-answer"></div>
 </div>
 
 <script>
@@ -28,6 +28,6 @@
     document.getElementById("tone-answer").innerHTML = tone;
     document.getElementById("pinyin-answer").innerHTML = possibilities[0].pinyin;
     document.getElementById("zhuyin-answer").innerHTML = possibilities[0].zhuyin;
-    document.getElementById("text-answer-ipa").innerHTML = possibilities[0].ipa;
+    document.getElementById("ipa-answer").innerHTML = possibilities[0].ipa;
   })
 </script>

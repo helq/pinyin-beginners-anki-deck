@@ -22,7 +22,7 @@
 
   <div id="pinyin-answer" class="pinyin"></div>
   <div id="zhuyin-answer" class="zhuyin"></div>
-  <div id="text-answer-ipa" class="ipa"></div>
+  <div id="ipa-answer" class="ipa"></div>
 
   <br/><br/>
   {{Extra Info}}
@@ -43,6 +43,6 @@
     // writing answer
     document.getElementById("pinyin-answer").innerHTML = possibilities[0].pinyin;
     document.getElementById("zhuyin-answer").innerHTML = possibilities[0].zhuyin;
-    document.getElementById("text-answer-ipa").innerHTML = possibilities[0].ipa;
+    document.getElementById("ipa-answer").innerHTML = possibilities[0].ipa;
   })
 </script>
