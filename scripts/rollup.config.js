@@ -15,9 +15,15 @@ export default [{
           {targets: ["ios >= 5", "android >= 4"]}]
       ]
     }),
-    terser({format: {
-      // Necessary for generating Anki play buttons
-      comments: /EOL\s*{{.*?}}\s*EOL/
-    }})
+    terser({
+      mangle: {
+        // Prevent mangling of one-character functions
+        keep_fnames: /./,
+      },
+      format: {
+        // Necessary for generating Anki play buttons
+        comments: /EOL\s*{{.*?}}\s*EOL/
+      }
+    })
   ]
 }];

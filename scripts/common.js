@@ -11,28 +11,27 @@ export function checkPersistence(callback) {
 }
 
 export function getChunks(fun, clean = true) {
-  let chunks = fun.toString()
-    //Strip HTML
-    .replace(/<div>/g, "\n")
-    .replace(/<\/div>/g, "\n")
-    .replace(/<\/?br ?\/?>/g, "\n");
-
-  if (clean) {
-    chunks = chunks
-      .replace(/\s*</g, "<")
-      .replace(/>\s*/g, ">")
+  function strip(html) {
+    html = html
+      .replace(/<div>/g, "\n")
+      .replace(/<\/div>/g, "\n")
+      .replace(/<\/?br ?\/?>/g, "\n");
+    return clean
+      ? html
+        .replace(/\s*</g, "<")
+        .replace(/>\s*/g, ">")
+      : html;
   }
 
-  chunks = chunks.split('EOL');
-  chunks = chunks.slice(2, chunks.length - 1);
-  return chunks;
+  const chunks = strip(fun.toString()).split('EOL')
+  return chunks.slice(2, chunks.length - 1);
 }
 
 export function getElemsFromChunks(fun) {
-  return Array.prototype.map(chunk => {
+  return getChunks(fun).map(chunk => {
     const [sound, pinyin, zhuyin, ipa] = chunk.split("MOS");
     return {sound, pinyin, zhuyin, ipa};
-  }, getChunks(fun));
+  });
 }
 
 export function shuffle(array) {
