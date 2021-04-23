@@ -12,7 +12,6 @@
   checkPersistence(function main() {
     playAudioAndPersistPossibilities(getChunks(() => {/*EOL {{Audio 1}} EOL*/ }))
 
-    const typeAns = document.getElementById("typeans");
-    if (typeAns) typeAns.focus();
+    document.getElementById("typeans")?.focus();
   })
 </script>
