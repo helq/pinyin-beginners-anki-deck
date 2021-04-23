@@ -36,8 +36,7 @@ def init_notes() -> Dict[str, Dict[str, str]]:
                                capture_output=True, shell=True, cwd=here.resolve())
             if p.returncode:
                 raise Exception(p.stderr.decode())
-            out = p.stdout.decode(html.encoding)
-            script.string = out
+            script.string = p.stdout.decode(html.encoding)
 
         return soup.prettify(formatter='html')
 
