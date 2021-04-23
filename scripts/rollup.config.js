@@ -12,7 +12,11 @@ export default [{
       babelHelpers: 'inline',
       presets: [
         [require('@babel/preset-env'),
-          {targets: ["ios >= 5", "android >= 4"]}]
+          {
+            useBuiltIns: 'entry',
+            corejs: '3.11.0',
+            targets: ['ios >= 5', 'android >= 4']
+          }]
       ]
     }),
     terser({

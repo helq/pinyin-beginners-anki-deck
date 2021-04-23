@@ -6,6 +6,7 @@ from typing import List, Any, Tuple, Dict
 
 import genanki
 from bs4 import BeautifulSoup
+from os import sep
 
 
 def init_notes() -> Dict[str, Dict[str, str]]:
@@ -13,6 +14,7 @@ def init_notes() -> Dict[str, Dict[str, str]]:
 
     def init_npm():
         args = ['npm', 'install']
+        print(f"Running npm install from '{scripts_path}'")
         p = subprocess.run(args, capture_output=False, shell=True, cwd=scripts_path)
         if p.returncode:
             raise Exception(p.stderr.decode())
@@ -30,6 +32,7 @@ def init_notes() -> Dict[str, Dict[str, str]]:
             script.insert(0, data)
 
         for script in soup.find_all('script', src=False):
+            print(f"Transpiling '{path.parent.name}{sep}{path.name}'")
             rollup_config = scripts_path / 'rollup.config.js'
             args = ['npx', 'rollup', '--config', rollup_config.resolve(), '--stdin=js']
             p = subprocess.run(args, input=bytes(script.string, encoding=html.encoding),
