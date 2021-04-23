@@ -11,7 +11,6 @@ export function checkPersistence(callback) {
 }
 
 export function getChunks(fun, clean = true) {
-
   let chunks = fun.toString()
     //Strip HTML
     .replace(/<div>/g, "\n")
@@ -30,15 +29,10 @@ export function getChunks(fun, clean = true) {
 }
 
 export function getElemsFromChunks(fun) {
-  return getChunks(fun).map(chunk => {
-    const bits = chunk.split("MOS");
-    return {
-      'sound': bits[0],
-      'pinyin': bits[1],
-      'zhuyin': bits[2],
-      'ipa': bits[3]
-    };
-  });
+  return Array.prototype.map(chunk => {
+    const [sound, pinyin, zhuyin, ipa] = chunk.split("MOS");
+    return {sound, pinyin, zhuyin, ipa};
+  }, getChunks(fun));
 }
 
 export function shuffle(array) {
@@ -58,7 +52,7 @@ export function shuffle(array) {
 
 export function playAudio(id) {
   const query = ['', ' > .replaybutton', ' > [title="Replay"]', ' > a']
-    .map(q => '#' + id.toString() + q)
+    .map(q => `#${id}${q}`)
     .join(', ');
   const links = document.querySelectorAll(query);
   for (const link of links) {
@@ -75,7 +69,7 @@ export function playAudioAndPersistPossibilities(possibilities, max_sounds_shown
 
   // Common to front and back cards
   possibilities.forEach(function (elem) {
-    document.getElementById(playId).innerHTML += elem['sound'] || elem;
+    document.getElementById(playId).innerHTML += elem.sound || elem;
   });
 
   // playing first audio
