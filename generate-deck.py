@@ -214,7 +214,8 @@ def get_zhuyin_syllable(pinyin: str) -> str:
     match_zy = zy_re.match(pinyin)
     if not match_zy:
         raise Exception(f"'{pinyin}' isn't a syllable")
-    return lookup_zhuyin(match_zy[1]) + all_zhuyin[match_zy[2]]
+    tone = '' if int(match_zy[2]) == 1 else all_zhuyin[match_zy[2]]
+    return lookup_zhuyin(match_zy[1]) + tone
 
 
 def gen_decks_initials_finals() -> Tuple[Any, Any]:
