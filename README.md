@@ -11,7 +11,7 @@ of natives pronuncing the syllable.
 Download
 --------
 
-I recommend you download this deck from [the Ankiweb webpage][deckankiurl], or if you are
+I recommend you to download this deck from [the Ankiweb webpage][deckankiurl], or if you are
 feeling adventurous you can keep reading ;)
 
 "Compile" Deck
@@ -19,22 +19,22 @@ feeling adventurous you can keep reading ;)
 
 If you want to modify this deck to fit your needs, and you want to do it programatically,
 i.e., you want to modify the Python script `generate-deck.py`, you will need to install
-the python library `genanki`:
+the python libraries `genanki` and `beautifulsoup4`:
 
+~~~bash
+pip install genanki beautifulsoup4
 ~~~
-pip install genanki
-~~~
 
-The script is written in Python 3.6 or higher.
+The script is written in now well supported Python 3 (> 3.6).
 
-Once everything is ready, run the script `generate-deck.py`:
+Once everything is ready, run the script with:
 
-~~~
+~~~bash
 python3 generate-deck.py
 ~~~
 
 The script generates an Anki deck with name `pinyin_deck.apkg` in the same folder the
-script was run. You can install this deck as any other in Anki.
+script is run. You can install this deck as any other in Anki deck.
 
 Notice that this repository doesn't contain any of the recordings that the deck uses. You
 will need to download the audios independently from
@@ -43,8 +43,17 @@ will need to download the audios independently from
 Acknowledgements
 ----------------
 
-Special thanks to [anki-persistence][] which allows to easily retrieve information
-shown at the front of the card.
+Thanks to all the contributors/developers to this Anki deck. Thank you for your time into
+this small script. It wouldn't be the same functional script it is now without your help.
+In alphabetic order, thank you to [Gianluca Venturini][gianluca], [Mike Lambert][mikelambert]
+and [Robin Avery][ribbanya].
+
+[gianluca]: https://github.com/gianluca-venturini
+[mikelambert]: https://github.com/mikelambert
+[ribbanya]: https://github.com/ribbanya
+
+Special thanks to [anki-persistence][] for their script to easily retrieve information
+seen on the front of a card once one has switched to the front.
 
 [anki-persistence]: https://github.com/SimonLammer/anki-persistence
 
