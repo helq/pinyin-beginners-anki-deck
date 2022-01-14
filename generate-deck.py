@@ -200,8 +200,6 @@ all_zhuyin: Dict[str, str] = json.load(open("recordings/zhuyin.json"))
 
 
 def lookup_zhuyin(pinyin: str) -> str:
-    pinyin = pinyin.replace('ü', 'u')
-
     if pinyin not in all_zhuyin:
         raise Exception(f"'{pinyin}' isn't zhuyin")
     return all_zhuyin[pinyin]
