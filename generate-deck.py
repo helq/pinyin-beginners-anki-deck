@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 
 
 def init_notes() -> Dict[str, Dict[str, str]]:
-    def inject(path: Path):
+    def inject(path: Path) -> Any:
         here = path.parent
         with open(path, 'r') as html:
             soup = BeautifulSoup(html, features='html.parser')
@@ -17,7 +17,9 @@ def init_notes() -> Dict[str, Dict[str, str]]:
             src_path = here / script.attrs.pop('src')
             data = open(src_path.resolve(), 'r').read()
             script.insert(0, data)
-        # TODO: Minify js here. Anki seems to have problems with minified js, but there is probably a way.
+
+        # TODO: Minify js here. Anki seems to have problems with minified js, but there is
+        # probably a way.
 
         return soup.prettify(formatter='html')
 
@@ -77,20 +79,24 @@ spellings_model = genanki.Model(
 )
 
 
-def format_card(card_template: str, val1: int, val2: int, opt: bool = False) -> str:
+def format_card(card_template: str, val1: int, val2: int, ID: int, opt: bool = False) -> str:
     card_template = card_template \
         .replace('||SOUND NUMBER 1||', str(val1)) \
         .replace('||SOUND NUMBER 2||', str(val2))
+    card_template = f'<!-- Filler data to make Anki happy: {val1} {val2} {ID} -->\n' \
+        + card_template
     if val1 == 3 or val2 == 3:
         card_template = (
-            "{{#Pinyin 3}}\n" + card_template + "\n{{/Pinyin 3}}"
+            "{{#Pinyin 3}}\n"
+            f"{card_template}\n"
+            "{{/Pinyin 3}}"
         )
         if opt:
             card_template = (
                 '{{#Compare with Pinyin 3'
                 ' multiple times (or once)? (create 3 cards or 1) [y=3cards]}}\n'
-                + card_template
-                + '\n{{/Compare with Pinyin 3'
+                f"{card_template}\n"
+                '{{/Compare with Pinyin 3'
                 ' multiple times (or once)? (create 3 cards or 1) [y=3cards]}}'
             )
     return card_template
@@ -120,48 +126,48 @@ pairs_model = genanki.Model(
   templates=[
     {
       'name': 'Which (1-2)? - 1',
-      'qfmt': format_card(notes['pairs']['front'], 1, 2),
-      'afmt': format_card(notes['pairs']['back'],  1, 2),
+      'qfmt': format_card(notes['pairs']['front'], 1, 2, ID=1),
+      'afmt': format_card(notes['pairs']['back'],  1, 2, ID=1),
     },
     {
       'name': 'Which (1-2)? - 2',
-      'qfmt': format_card(notes['pairs']['front'], 1, 2),
-      'afmt': format_card(notes['pairs']['back'],  1, 2),
+      'qfmt': format_card(notes['pairs']['front'], 1, 2, ID=2),
+      'afmt': format_card(notes['pairs']['back'],  1, 2, ID=2),
     },
     {
       'name': 'Which (1-2)? - 3',
-      'qfmt': format_card(notes['pairs']['front'], 1, 2),
-      'afmt': format_card(notes['pairs']['back'],  1, 2),
+      'qfmt': format_card(notes['pairs']['front'], 1, 2, ID=3),
+      'afmt': format_card(notes['pairs']['back'],  1, 2, ID=3),
     },
     {
       'name': 'Which (1-3)? - 1',
-      'qfmt': format_card(notes['pairs']['front'], 1, 3),
-      'afmt': format_card(notes['pairs']['back'],  1, 3),
+      'qfmt': format_card(notes['pairs']['front'], 1, 3, ID=4),
+      'afmt': format_card(notes['pairs']['back'],  1, 3, ID=4),
     },
     {
       'name': 'Which (1-3)? - 2',
-      'qfmt': format_card(notes['pairs']['front'], 1, 3, opt=True),
-      'afmt': format_card(notes['pairs']['back'],  1, 3, opt=True),
+      'qfmt': format_card(notes['pairs']['front'], 1, 3, ID=5, opt=True),
+      'afmt': format_card(notes['pairs']['back'],  1, 3, ID=5, opt=True),
     },
     {
       'name': 'Which (1-3)? - 3',
-      'qfmt': format_card(notes['pairs']['front'], 1, 3, opt=True),
-      'afmt': format_card(notes['pairs']['back'],  1, 3, opt=True),
+      'qfmt': format_card(notes['pairs']['front'], 1, 3, ID=6, opt=True),
+      'afmt': format_card(notes['pairs']['back'],  1, 3, ID=6, opt=True),
     },
     {
       'name': 'Which (2-3)? - 1',
-      'qfmt': format_card(notes['pairs']['front'], 2, 3),
-      'afmt': format_card(notes['pairs']['back'],  2, 3),
+      'qfmt': format_card(notes['pairs']['front'], 2, 3, ID=7),
+      'afmt': format_card(notes['pairs']['back'],  2, 3, ID=7),
     },
     {
       'name': 'Which (2-3)? - 2',
-      'qfmt': format_card(notes['pairs']['front'], 2, 3, opt=True),
-      'afmt': format_card(notes['pairs']['back'],  2, 3, opt=True),
+      'qfmt': format_card(notes['pairs']['front'], 2, 3, ID=8, opt=True),
+      'afmt': format_card(notes['pairs']['back'],  2, 3, ID=8, opt=True),
     },
     {
       'name': 'Which (2-3)? - 3',
-      'qfmt': format_card(notes['pairs']['front'], 2, 3, opt=True),
-      'afmt': format_card(notes['pairs']['back'],  2, 3, opt=True),
+      'qfmt': format_card(notes['pairs']['front'], 2, 3, ID=9, opt=True),
+      'afmt': format_card(notes['pairs']['back'],  2, 3, ID=9, opt=True),
     },
   ],
   css=notes['pairs']['style']
@@ -280,7 +286,7 @@ def gen_deck_pairs() -> Any:
     for pair, data in pairs.items():
         pinyin: List[str] = [data[f'written-{i}'] for i in range(1, 4)]
 
-        def get_zhuyin(i):
+        def get_zhuyin(i: int) -> str:
             w = pinyin[i]
             return lookup_zhuyin(w) if w else ''
 
@@ -417,7 +423,7 @@ def gen_deck_readme() -> Any:
          'Main page:',
          '<a href="https://github.com/helq/pinyin-beginners-anki-deck">github webpage</a>',
          '<br><br>',
-         '2016 - 2021<br></div>']),
+         '2016 - 2022<br></div>']),
         '\n'.join([
          '<div style="font-family: Arial; font-size: 15px;">',
          'You can now suspend this card, ignore it or delete it. But I suggest you keep it',
