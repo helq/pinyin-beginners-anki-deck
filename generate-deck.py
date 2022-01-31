@@ -87,10 +87,10 @@ def format_card(card_template: str, val1: int, val2: int, opt: bool = False) -> 
         )
         if opt:
             card_template = (
-                '{{#Compare with "Pinyin 3"'
+                '{{#Compare with Pinyin 3'
                 ' multiple times (or once)? (create 3 cards or 1) [y=3cards]}}\n'
                 + card_template
-                + '\n{{/Compare with "Pinyin 3"'
+                + '\n{{/Compare with Pinyin 3'
                 ' multiple times (or once)? (create 3 cards or 1) [y=3cards]}}'
             )
     return card_template
@@ -114,7 +114,7 @@ pairs_model = genanki.Model(
     {'name': 'Audio 2'},
     {'name': 'Audio 3'},
     {'name': 'Extra Info'},
-    {'name': 'Compare with "Pinyin 3"'
+    {'name': 'Compare with Pinyin 3'
              ' multiple times (or once)? (create 3 cards or 1) [y=3cards]'},
   ],
   templates=[
