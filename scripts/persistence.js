@@ -1,4 +1,4 @@
-// v0.5.2 - https://github.com/SimonLammer/anki-persistence/blob/62463a7f63e79ce12f7a622a8ca0beb4c1c5d556/script.js
+// v1.1.8 - https://github.com/SimonLammer/anki-persistence/blob/584396fea9dea0921011671a47a0fdda19265e62/script.js
 
 if (typeof(window.Persistence) === 'undefined') {
   var _persistenceKey = 'github.com/SimonLammer/anki-persistence/';
@@ -36,6 +36,17 @@ if (typeof(window.Persistence) === 'undefined') {
           }
           sessionStorage.removeItem(_persistenceKey + key);
         };
+        this.getAllKeys = function () {
+          var keys = [];
+          var prefixedKeys = Object.keys(sessionStorage);
+          for (var i = 0; i < prefixedKeys.length; i++) {
+            var k = prefixedKeys[i];
+            if (k.indexOf(_persistenceKey) == 0) {
+              keys.push(k.substring(_persistenceKey.length, k.length));
+            }
+          };
+          return keys.sort()
+        }
       }
     } catch(err) {}
     this.isAvailable = function() {
@@ -61,7 +72,7 @@ if (typeof(window.Persistence) === 'undefined') {
         if (key == undefined) {
           key = _defaultKey;
         }
-        return obj[_persistenceKey][key] || null;
+        return obj[_persistenceKey][key] == undefined ? null : obj[_persistenceKey][key];
       };
       this.removeItem = function(key) {
         if (key == undefined) {
@@ -69,6 +80,9 @@ if (typeof(window.Persistence) === 'undefined') {
         }
         delete obj[_persistenceKey][key];
       };
+      this.getAllKeys = function () {
+        return Object.keys(obj[_persistenceKey]);
+      }
 
       if (obj[_persistenceKey] == undefined) {
         this.clear();
